@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.simpletodo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <!-- WARNING: Commercial usage: Allowed (Backlink to http://www.doublejdesign.co.uk required)  -->
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/todo_list"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <provider
+            android:exported="false"
+       		android:authorities="com.example.simpletodo"
+       		android:name="com.example.simpletodo.TodoListDbContentProvider">
+		</provider> 
+        <activity
+            android:name="com.example.simpletodo.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

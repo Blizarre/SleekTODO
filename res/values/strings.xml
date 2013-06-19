@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple TODO</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit_message">What To Do ?</string>
+	<string name="button_add_normal">Normal</string>
+	<string name="button_add_important">Important</string>
+	<string name="button_add_critical">Critical</string>
+	<string name="action_eraseAll">Erase all items</string>
+	<string name="msg_todo_added">New todo Entry added</string>
+	<string name="msg_todo_added_nok">Error adding new todo Entry</string>
+	<string name="label_add">Add :</string>
+	
+	
+</resources>
