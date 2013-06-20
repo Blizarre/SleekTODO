@@ -23,7 +23,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="21"
-		    android:onClick="addTodoItemCritical"
+		    android:onClick="button_addTodoItemCritical"
 		    android:text="@string/button_add_critical"
 		    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
@@ -32,7 +32,7 @@
 		    android:layout_width="0dp"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="21"
-		    android:onClick="addTodoItemImportant"
+		    android:onClick="button_addTodoItemImportant"
 		    android:text="@string/button_add_important"
 		    android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 	    
@@ -41,7 +41,7 @@
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="21"
-	        android:onClick="addTodoItemNormal"
+	        android:onClick="button_addTodoItemNormal"
 	        android:text="@string/button_add_normal"
 	        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
 
@@ -55,9 +55,15 @@
 	    android:hint="@string/edit_message" />
 
 	<ListView
-	    android:id="@+id/TodoList"
+    android:id="@+id/TodoList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+</ListView>
+
+<!--  	<android.support.v4.view.ViewPager
+	    android:id="@+id/pager"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
-	</ListView>
+	    android:layout_height="match_parent" /> -->
+
 
 </LinearLayout>

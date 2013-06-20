@@ -1,15 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
-        android:id="@+id/action_settings"
+	<item
+        android:id="@+id/action_erase_all"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_settings"/>
-
-        <item
-        android:id="@+id/action_eraseAll"
+        android:title="@string/action_erase_all" android:onClick="menu_eraseAllTodos"/>
+    
+    
+    <item
+        android:id="@+id/action_erase_checked"
         android:orderInCategory="200"
         android:showAsAction="never"
-        android:title="@string/action_eraseAll"/>
+        android:title="@string/action_erase_checked" android:onClick="menu_eraseCheckedTodos"/>
+    
+    <item 
+        android:id="@+id/action_auto_keyboard" 
+        android:title="@string/action_auto_keyboard" 
+        android:checkable="true" android:onClick="menu_changeAutoKeyboard" android:showAsAction="never"/>
         
+    <item 
+        android:id="@+id/action_change_font" 
+        android:title="@string/action_change_font" 
+        android:checkable="false" android:onClick="menu_changeFontSize" android:showAsAction="never"/>
+      
+    
 </menu>

@@ -18,7 +18,6 @@ public class TodoListDbContentProvider extends ContentProvider {
 	private static final String logTag = "TodoListDbContentProvider" ;
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
-//	private final Context mCtx;
 
     private static UriMatcher sUriMatcher;
 
@@ -81,9 +80,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 		mDbHelper = new DatabaseHelper(getContext());
 	    sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(TodoItemContract.AUTHORITY, TodoItemContract.CONTENT_TODO, 1);
-		Log.v(logTag, "onCreate pas done");
 		mDb = mDbHelper.getWritableDatabase();
-		Log.v(logTag, "onCreate done");
 		return true;
 	}
 

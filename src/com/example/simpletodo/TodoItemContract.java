@@ -1,12 +1,12 @@
 package com.example.simpletodo;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
 /* Inner class that defines the table contents */
 public abstract class TodoItemContract implements BaseColumns {
     public static final String TABLE_NAME = "todo";
+    public static final String COLUMN_NAME_ID = "_ID";
     public static final String COLUMN_NAME_TEXT = "textTodo";
     public static final String COLUMN_NAME_LONGTEXT = "longTextTodo";
     public static final String COLUMN_NAME_DATE = "date";
