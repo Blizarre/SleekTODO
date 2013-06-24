@@ -17,13 +17,16 @@ import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -45,9 +48,11 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 	public static class Singleton {
 		private Singleton() {};
 		public static int size;
+		public static boolean isColorBlind;
 	}
 	
 	protected final String PREF_AUTO_KEYB="auto_keyboard";
+	protected final String PREF_IS_COLORBLIND="is_colorblind";
 	protected final String PREF_SIZE_FONT="font_size";
 
 	private static final String logTag = "TodoListMainActivity" ;
@@ -71,10 +76,10 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
        	boolean isAutoKb    = sharedPref.getBoolean(PREF_AUTO_KEYB, true);
        	Singleton.size = sharedPref.getInt(PREF_SIZE_FONT, 1);
+       	Singleton.isColorBlind = sharedPref.getBoolean(PREF_IS_COLORBLIND, false);
+       	
        	setAutoKeyboard(isAutoKb);
        	
-        EditText t = (EditText) findViewById(R.id.edit_message);
-
         Button bn = (Button) findViewById(R.id.edit_button_normal);
         Button bi = (Button) findViewById(R.id.edit_button_important);
         Button bc = (Button) findViewById(R.id.edit_button_critical);
@@ -84,14 +89,42 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         bi.setBackgroundColor(getResources().getColor(R.color.list_important));
         bc.setBackgroundColor(getResources().getColor(R.color.list_critical));
         
-        t.setOnLongClickListener( new OnLongClickListener() {
+        bn.setText(Html.fromHtml(getString(R.string.button_add_normal)));
+        bi.setText(Html.fromHtml(getString(R.string.button_add_important)));
+        bc.setText(Html.fromHtml(getString(R.string.button_add_critical)));
+        
+        // No need to show the app title on the action bar. Take too much space on small devices.
+        getActionBar().setDisplayShowTitleEnabled(false);
+        
+        TextView t = (TextView) findViewById(R.id.edit_message);
+        
+        
+        
+        t.addTextChangedListener(new TextWatcher() {
+			
 			@Override
-			public boolean onLongClick(View v) {
-				EditText t = (EditText)v;
-				t.setText("");
-				return true;
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				View v = findViewById(R.id.buttons_group);
+				if(s.length() != 0)
+					v.setVisibility(View.VISIBLE);
+				else
+					v.setVisibility(View.GONE);
+				
 			}
-		});          
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
     }
     
 
@@ -172,34 +205,42 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
             		return true;
             	}
             	if(columnIndex == cursor.getColumnIndex(TodoItemContract.COLUMN_NAME_TEXT)) {
-            		
             		TextView et = (TextView) view;
             		et.setText(cursor.getString(columnIndex));
-            		//SharedPreferences sharedPref = et.getContext().getSharedPreferences.getPreferences(Context.MODE_PRIVATE);
-            		switch(Singleton.size){
-            			case 0:
-            				et.setTextAppearance(et.getContext(), android.R.style.TextAppearance_Small);
-            				break;
-            			case 1:
-            				et.setTextAppearance(et.getContext(), android.R.style.TextAppearance_Medium);
-            				break;
-            			case 2:
-            				et.setTextAppearance(et.getContext(), android.R.style.TextAppearance_Large);
-            				break;
-            		}
+            		et.setTextAppearance(et.getContext(), Singleton.size);
             		return true;
             	}            	
             	if(columnIndex == cursor.getColumnIndex(TodoItemContract.COLUMN_NAME_FLAG)) {
             		TextView tv = (TextView) view;
+
+            		tv.setTextAppearance(tv.getContext(), Singleton.size);
+            		tv.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+    				tv.setText(" ");
+
             		switch(cursor.getInt(columnIndex)) {
             		case TodoItemContract.TODO_FLAG_CRITICAL:
-            			tv.setBackgroundColor(getResources().getColor(R.color.list_critical));
+            			if(Singleton.isColorBlind) {
+            				tv.setText("!!");
+            				tv.setBackgroundColor(getResources().getColor(android.R.color.background_light));
+            			} else {
+            				tv.setBackgroundColor(getResources().getColor(R.color.list_critical));
+            			}
             			break;
             		case TodoItemContract.TODO_FLAG_IMPORTANT:
-            			tv.setBackgroundColor(getResources().getColor(R.color.list_important));
+            			if(Singleton.isColorBlind) {
+            				tv.setText("++");
+            				tv.setBackgroundColor(getResources().getColor(android.R.color.background_light));
+            			} else {
+            				tv.setBackgroundColor(getResources().getColor(R.color.list_important));
+            			}
             			break;
             		case TodoItemContract.TODO_FLAG_NORMAL:
-            			tv.setBackgroundColor(getResources().getColor(R.color.list_normal));
+            			if(Singleton.isColorBlind) { 
+            				tv.setText("..");
+            				tv.setBackgroundColor(getResources().getColor(android.R.color.background_light));
+            			} else {
+            				tv.setBackgroundColor(getResources().getColor(R.color.list_normal));
+            			}
             			break;
             		}
             		return true;
@@ -226,10 +267,6 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 	public void menu_eraseAllTodos(MenuItem view) {
         DialogFragment dialog = new RemoveAllTodoConfirmDialog();
         dialog.show(getFragmentManager(), "RemoveAllTodoConfirmDialog");
-
-    	/*int ret = getContentResolver().delete(TodoItemContract.TODO_URI, null, null);
-		String msg = String.format(getString(R.string.msg_elements_removed), ret);
-    	Toast.makeText(this,  msg, Toast.LENGTH_SHORT).show();*/
 	}
 	
 
@@ -239,18 +276,34 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         dialog.show(getFragmentManager(), "NoticeDialogFragment");
 	}	
 	
-	public void menu_changeAutoKeyboard(MenuItem view) {
+	public void menu_erase_text(MenuItem view) {
+		EditText t = (EditText)findViewById(R.id.edit_message);
+		t.setText("");
+	}
+	
+	
+	public void menu_changeColorblind(MenuItem mi) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 		Editor e = sharedPref.edit();
-		if(view.isChecked()) {
-			view.setChecked(false);
-			e.putBoolean(PREF_AUTO_KEYB, false);
-			setAutoKeyboard(false);
-		} else {
-			view.setChecked(true);
-			e.putBoolean(PREF_AUTO_KEYB, true);
-			setAutoKeyboard(true);
-		}
+		boolean newVal = ! mi.isChecked();
+		
+		mi.setChecked(newVal);
+		e.putBoolean(PREF_IS_COLORBLIND, newVal);
+		Singleton.isColorBlind = newVal;
+		e.commit();
+		todoDataAdapter.notifyDataSetChanged();
+
+
+	}
+	
+	public void menu_changeAutoKeyboard(MenuItem mi) {
+		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+		Editor e = sharedPref.edit();
+		boolean newVal = ! mi.isChecked();
+		
+		mi.setChecked(newVal);
+		e.putBoolean(PREF_AUTO_KEYB, newVal);
+		setAutoKeyboard(newVal);
 		e.commit();
 	}
 	
@@ -349,22 +402,37 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         getMenuInflater().inflate(R.menu.main, menu);
 
        	MenuItem mkb = menu.findItem(R.id.action_auto_keyboard);
+       	MenuItem mkcb = menu.findItem(R.id.action_colorblind_mode);
        	
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
        	boolean isAutoKb    = sharedPref.getBoolean(PREF_AUTO_KEYB, true);
        	mkb.setChecked(isAutoKb);
-
+       	mkcb.setChecked(Singleton.isColorBlind);
        	return true;
     }
 
 
 
+    /** Dialog callback **/
+    
 	@Override
 	public void onDialogSelect(int which) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 		Editor e = sharedPref.edit();
 		e.putInt(PREF_SIZE_FONT, which);
-		Singleton.size=which;
+		
+		switch(which){
+			case 0:
+				Singleton.size = android.R.style.TextAppearance_Small;
+				break;
+			case 1:
+				Singleton.size = android.R.style.TextAppearance_Medium;
+				break;
+			case 2:
+				Singleton.size = android.R.style.TextAppearance_Large;
+				break;
+		}
+
 		e.commit();
 		
 		todoDataAdapter.notifyDataSetChanged();
@@ -375,8 +443,9 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 
 	@Override
 	public void onDialogConfirmRemoveAll() {
-		Toast.makeText(this, "Remove all !!!!!", Toast.LENGTH_SHORT).show();
-		
+    	int ret = getContentResolver().delete(TodoItemContract.TODO_URI, null, null);
+		String msg = String.format(getString(R.string.msg_elements_removed), ret);
+    	Toast.makeText(this,  msg, Toast.LENGTH_SHORT).show();
 	}
     
 }
