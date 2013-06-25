@@ -2,33 +2,27 @@
 
 	<item
         android:id="@+id/action_erase_all"
-        android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_erase_all" android:onClick="menu_eraseAllTodos"/>
     
     
     <item
         android:id="@+id/action_erase_checked"
-        android:orderInCategory="200"
         android:showAsAction="never"
         android:title="@string/action_erase_checked" android:onClick="menu_eraseCheckedTodos"/>
     
-    <item 
-        android:id="@+id/action_auto_keyboard" 
-        android:title="@string/action_auto_keyboard" 
-        android:checkable="true" android:onClick="menu_changeAutoKeyboard" android:showAsAction="never"/>
+    
         
     <item 
         android:id="@+id/action_change_font" 
         android:title="@string/action_change_font" 
         android:checkable="false" android:onClick="menu_changeFontSize" android:showAsAction="never"/>
     
-    <item android:id="@+id/action_erase_text" 
-        android:showAsAction="always" 
-        android:title="@string/action_erase_text" 
-        android:onClick="menu_erase_text"></item>
+    <item android:id="@+id/action_auto_keyboard" android:title="@string/action_auto_keyboard" android:checkable="true" android:onClick="menu_changeAutoKeyboard" android:showAsAction="never" />
       
             <!-- android:icon="@drawable/ic_notification_clear_all"-->
-    <item android:id="@+id/action_colorblind_mode" android:title="@string/action_colorblind_mode" android:checked="false" android:checkable="true" android:onClick="menu_changeColorblind"></item> 
+    <item android:id="@+id/action_colorblind_mode" android:title="@string/action_colorblind_mode" android:checked="false" android:checkable="true" android:onClick="menu_changeColorblind"></item>
+    <item android:id="@+id/action_help" android:title="@string/action_show_help" android:onClick="menu_showHelp" android:orderInCategory="100"></item>
+    <item android:id="@+id/action_erase_text" android:showAsAction="always" android:title="@string/action_erase_text" android:onClick="menu_erase_text"></item> 
     
 </menu>

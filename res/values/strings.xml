@@ -6,34 +6,68 @@
     <string name="action_erase_all">Erase all items</string>
     <string name="action_auto_keyboard">Keyboard on startup</string>
 	<string name="action_change_font">Change font size</string>
-	<string name="action_erase_text">Erase Text</string>
+	<string name="action_erase_text">Clear Text</string>
+	
+	<string name="action_colorblind_mode">Use symbols</string>	
+	<string name="action_show_help">Show Help</string>
+	<string name="action_hide_keyboard">Hide Keyb.</string>
+		
 	
 <!--  Misc  -->
-    <string name="app_name">Simple TODO</string>
+    <string name="app_name">Sleek Todo</string>
+    <string name="edit_message">To Do ...</string>
+    <string name="pick_font_size">Font size:</string>
+    <string name="pick_areyousure">Are you sure? ALL items will be removed</string>
+    
 
-    
-    <string name="edit_message">What To Do ?</string>
-    <string name="pick_font_size">Font size :</string>
-    <string name="pick_areyousure">Are you sure ? ALL items will be removed</string>
-    
-	<string name="button_add_normal"><![CDATA[Add as <b>Normal</b>]]></string>
-	<string name="button_add_important"><![CDATA[Add as <b>Important</b>]]></string>
-	<string name="button_add_critical"><![CDATA[Add as <b>Critical</b>]]></string>
 	
+	<string name="msg_help"><![CDATA[
+	    
+	    <p><b>How to use</b></p>
+	    
+	    <p>First things first, thank you for downloading this app! Some tips:</p>
+
+		<p>
+		&#8226; The keyboard opens at startup. You can change this behavior in the menu<br/>
+		&#8226; Add an item: input your text then select the priority<br/>
+		&#8226; Remove an item: Long press on it, or use the menu.<br/>
+		&#8226; Edit an item: long press (remove) it to copy the text on the input area, edit it and select the priority to add it as a new item<br/>
+		&#8226; You can use symbols instead of the color code (see the menu)<br/>
+		&#8226; You can change the font size from the menu</li> 
+		</p>
+			    
+	    
+	    <p><b>Icon</b></p>
+	    
+	    <p>The <i>Sleek TODO</i> icon is kindly provided by <a href="http://www.doublejdesign.co.uk">http://www.doublejdesign.co.uk</a></p> 
+	    
+	    ]]></string>
+
+	<!--  Buttons  -->	
 	<string name="edit_button_remove_all">Remove All</string>
 	<string name="edit_button_cancel">Cancel</string>
-
-
-	<string name="msg_todo_added">New todo Entry added</string>
+	<string name="button_continue">Continue</string>
+	
+	<string name="button_add_normal"><![CDATA[Add as<br/> <b>Normal</b>]]></string>
+	<string name="button_add_important"><![CDATA[Add as<br/> <b>Important</b>]]></string>
+	<string name="button_add_critical"><![CDATA[Add as<br/> <b>Critical</b>]]></string>
+	
+	
+	
+	<!--  Messages -->
+	<string name="msg_todo_added">New to-do Entry added</string>
 	<string name="msg_font_changed">Font size Changed</string>
 	<string name="msg_elements_removed">%d element(s) removed</string>
 	
-	
+	<!--  Debug  -->
 	<string name="msg_not_implemented">Not implemented</string>
+	<string name="msg_todo_added_nok">Error adding new to-do Entry</string>
 	
-	<string name="msg_todo_added_nok">Error adding new todo Entry</string>
-	<string name="label_add">Add with priority</string>
-	
-	<string name="action_colorblind_mode">Use symbols</string>
+	<string name="todo_text_1">Add an item: just start typing and select the priority</string>
+	<string name="todo_text_2">Remove this item (long press on it)</string>
+	<string name="todo_text_3">The text of any removed item is copied back in the input text area. Clear it using the button or edit it and add it again.</string>
+	<string name="todo_text_4">Check/uncheck this item</string>
+	<string name="todo_text_5">Open the menu, remove everything and start todo\'ing</string>
 	
 </resources>
+

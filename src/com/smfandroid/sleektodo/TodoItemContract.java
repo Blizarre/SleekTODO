@@ -1,4 +1,4 @@
-package com.example.simpletodo;
+package com.smfandroid.sleektodo;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -13,7 +13,7 @@ public abstract class TodoItemContract implements BaseColumns {
     public static final String COLUMN_NAME_FLAG = "flag";
     public static final String COLUMN_NAME_CHECKED = "checked";
     
-    public static final String AUTHORITY = "com.example.simpletodo";
+    public static final String AUTHORITY = "com.smfandroid.sleektodo";
     public static final String CONTENT_TODO = "todoList";
     
     public static final Uri TODO_URI = new Uri.Builder().scheme("content").authority(AUTHORITY).path(CONTENT_TODO).build();

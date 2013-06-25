@@ -1,4 +1,4 @@
-package com.example.simpletodo;
+package com.smfandroid.sleektodo;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -42,7 +42,8 @@ public class TodoListDbContentProvider extends ContentProvider {
 	        TodoItemContract.COLUMN_NAME_CHECKED + INT_TYPE + COMMA_SEP +
 	        TodoItemContract.COLUMN_NAME_FLAG + INT_TYPE + 	        
 	        " );";
-	
+	    
+	    
 	    public static final String SQL_DELETE_ENTRIES =
 	        "DROP TABLE IF EXISTS " + TodoItemContract.TABLE_NAME;
 	

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.example.simpletodo;
+package com.smfandroid.sleektodo;
 
 public final class R {
     public static final class array {
@@ -15,8 +15,11 @@ public final class R {
     }
     public static final class color {
         public static final int list_critical=0x7f040000;
-        public static final int list_important=0x7f040001;
-        public static final int list_normal=0x7f040002;
+        public static final int list_critical_pressed=0x7f040001;
+        public static final int list_important=0x7f040002;
+        public static final int list_important_pressed=0x7f040003;
+        public static final int list_normal=0x7f040004;
+        public static final int list_normal_pressed=0x7f040005;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -29,17 +32,21 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int todo_list=0x7f020000;
+        public static final int button_critical=0x7f020000;
+        public static final int button_important=0x7f020001;
+        public static final int button_normal=0x7f020002;
+        public static final int todo_list=0x7f020003;
     }
     public static final class id {
         public static final int TextView01=0x7f0a0006;
         public static final int TodoList=0x7f0a0005;
-        public static final int action_auto_keyboard=0x7f0a000c;
-        public static final int action_change_font=0x7f0a000d;
-        public static final int action_colorblind_mode=0x7f0a000f;
+        public static final int action_auto_keyboard=0x7f0a000d;
+        public static final int action_change_font=0x7f0a000c;
+        public static final int action_colorblind_mode=0x7f0a000e;
         public static final int action_erase_all=0x7f0a000a;
         public static final int action_erase_checked=0x7f0a000b;
-        public static final int action_erase_text=0x7f0a000e;
+        public static final int action_erase_text=0x7f0a0010;
+        public static final int action_help=0x7f0a000f;
         public static final int buttons_group=0x7f0a0001;
         public static final int edit_button_critical=0x7f0a0004;
         public static final int edit_button_important=0x7f0a0003;
@@ -59,29 +66,47 @@ public final class R {
     public static final class string {
         public static final int action_auto_keyboard=0x7f070002;
         public static final int action_change_font=0x7f070003;
-        public static final int action_colorblind_mode=0x7f070014;
+        public static final int action_colorblind_mode=0x7f070005;
         public static final int action_erase_all=0x7f070001;
         /**   Menu  
+  Menu  
          */
         public static final int action_erase_checked=0x7f070000;
         public static final int action_erase_text=0x7f070004;
+        public static final int action_hide_keyboard=0x7f070007;
+        public static final int action_show_help=0x7f070006;
         /**   Misc  
+  Misc  
          */
-        public static final int app_name=0x7f070005;
-        public static final int button_add_critical=0x7f07000b;
-        public static final int button_add_important=0x7f07000a;
-        public static final int button_add_normal=0x7f070009;
-        public static final int edit_button_cancel=0x7f07000d;
-        public static final int edit_button_remove_all=0x7f07000c;
-        public static final int edit_message=0x7f070006;
-        public static final int label_add=0x7f070013;
-        public static final int msg_elements_removed=0x7f070010;
-        public static final int msg_font_changed=0x7f07000f;
-        public static final int msg_not_implemented=0x7f070011;
-        public static final int msg_todo_added=0x7f07000e;
-        public static final int msg_todo_added_nok=0x7f070012;
-        public static final int pick_areyousure=0x7f070008;
-        public static final int pick_font_size=0x7f070007;
+        public static final int app_name=0x7f070008;
+        public static final int button_add_critical=0x7f070012;
+        public static final int button_add_important=0x7f070011;
+        public static final int button_add_normal=0x7f070010;
+        public static final int button_continue=0x7f07000f;
+        public static final int edit_button_cancel=0x7f07000e;
+        /**   Buttons  
+  Buttons  
+         */
+        public static final int edit_button_remove_all=0x7f07000d;
+        public static final int edit_message=0x7f070009;
+        public static final int msg_elements_removed=0x7f070015;
+        public static final int msg_font_changed=0x7f070014;
+        public static final int msg_help=0x7f07000c;
+        /**   Debug  
+         */
+        public static final int msg_not_implemented=0x7f070016;
+        /**   Messages 
+  Messages 
+         */
+        public static final int msg_todo_added=0x7f070013;
+        public static final int msg_todo_added_nok=0x7f070017;
+        public static final int pick_areyousure=0x7f07000b;
+        public static final int pick_font_size=0x7f07000a;
+        public static final int todo_text_1=0x7f070018;
+        public static final int todo_text_2=0x7f070019;
+        public static final int todo_text_3=0x7f07001a;
+        public static final int todo_text_4=0x7f07001b;
+        public static final int todo_text_5=0x7f07001c;
     }
     public static final class style {
         /** 

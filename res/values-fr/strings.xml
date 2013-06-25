@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--  Menu  -->    
+    <string name="action_erase_checked">Effacer tâche(s) cochée(s)</string>
+    <string name="action_erase_all">Effacer tout</string>
+    <string name="action_auto_keyboard">Afficher clavier auto</string>
+	<string name="action_change_font">Taille de police</string>
+	<string name="action_erase_text">Effacer texte</string>
+	
+	<string name="action_colorblind_mode">Utiliser des symboles</string>	
+	<string name="action_show_help">Afficher l\'aide</string>
+	<string name="action_hide_keyboard">Cacher</string>
+		
+	
+<!--  Misc  -->
+    <string name="app_name">Sleek Todo</string>
+    <string name="edit_message">Que faire ?</string>
+    <string name="pick_font_size">Taille de police :</string>
+    <string name="pick_areyousure">Êtes-vous certain ? TOUTES les tâches seront supprimées</string>
+    
+
+	
+	<string name="msg_help"><![CDATA[
+	    
+	    <p><b>Aide</b></p>
+	    
+	    <p>Tout d\'abord, merci d\'avoir téléchargé cette application ! Voici quelques astuces :</p>
+
+		<p>
+		&#8226; Le clavier apparaît au démarrage. Vous pouvez changer cela dans le menu<br/>
+		&#8226; Ajouter une tâche : entrer le texte, puis sélectionner la priorité<br/>
+		&#8226; Supprimer une tâche : Faite un appui long dessus<br/>
+		&#8226; Éditer une tâche : réaliser un appui long dessus. Le texte sera copié dans la zone d\'édition. Le modifier puis sélectionner sa priorité<br/>
+		&#8226; Vous pouvez utiliser des symboles à la place du code couleur (voir le menu)<br/>
+		&#8226; Vous pouvez changer la taille de la police (voir le menu)</li> 
+		</p>
+			    
+	    
+	    <p><b>Icône</b></p>
+	    
+	    <p>L\'icône de <i>Sleek TODO</i> a été réalisée par <a href="http://www.doublejdesign.co.uk">http://www.doublejdesign.co.uk</a></p> 
+	    
+	    ]]></string>
+
+	<!--  Buttons  -->	
+	<string name="edit_button_remove_all">Tout supprimer</string>
+	<string name="edit_button_cancel">Annuler</string>
+	<string name="button_continue">Continuer</string>
+	
+	<string name="button_add_normal"><![CDATA[Tâche<br/> <b>Normale</b>]]></string>
+	<string name="button_add_important"><![CDATA[Tâche<br/> <b>Importante</b>]]></string>
+	<string name="button_add_critical"><![CDATA[Tâche<br/> <b>Critique</b>]]></string>
+	
+	
+	
+	<!--  Messages -->
+	<string name="msg_todo_added">Nouvelle tâche ajoutée</string>
+	<string name="msg_font_changed">Taille de police changée</string>
+	<string name="msg_elements_removed">%d élément(s) supprimé(s)</string>
+	
+	
+	<string name="todo_text_1">Ajout d\'un élément : tapez du texte et sélectionnez la priorité</string>
+	<string name="todo_text_2">Supprimez cet élément (appui long)</string>
+	<string name="todo_text_3">Le texte de tout élément supprimé est recopié dans la zone d\'édition. Effacez-le à l\'aide du bouton ou éditez-le pour le ré-ajouter.</string>
+	<string name="todo_text_4">Cochez/Décochez cet élément</string>
+	<string name="todo_text_5">Ouvrez le menu, supprimez tout et intégrez vos tâches !</string>
+	
+</resources>
+

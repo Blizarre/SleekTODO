@@ -1,4 +1,4 @@
-package com.example.simpletodo;
+package com.smfandroid.sleektodo;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
@@ -6,13 +6,14 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import com.smfandroid.sleektodo.R;
 
-public class FontSizeDialog extends DialogFragment implements DialogInterface.OnClickListener {
+public class RemoveAllTodoConfirmDialog extends DialogFragment implements DialogInterface.OnClickListener {
 
-    NoticeDialogListener mListener;
+    RemoveAllTodosDialogListener mListener;
 
-    public interface NoticeDialogListener {
-        public void onDialogSelect(int which);
+    public interface RemoveAllTodosDialogListener {
+        public void onDialogConfirmRemoveAll();
     }
 
     @Override
@@ -21,7 +22,7 @@ public class FontSizeDialog extends DialogFragment implements DialogInterface.On
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            mListener = (NoticeDialogListener) activity;
+            mListener = (RemoveAllTodosDialogListener) activity;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()
@@ -31,16 +32,17 @@ public class FontSizeDialog extends DialogFragment implements DialogInterface.On
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
- 	   mListener.onDialogSelect(which);
+ 	   if(which == DialogInterface.BUTTON_POSITIVE)
+ 		   mListener.onDialogConfirmRemoveAll();
     }
     
     @Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 	
 	    Builder builder = new Builder(getActivity());
-	    builder.setTitle(R.string.pick_font_size);
-	    
-	    builder.setItems(R.array.font_size, this);
+	    builder.setMessage(R.string.pick_areyousure);
+	    builder.setPositiveButton(R.string.edit_button_remove_all, this);
+	    builder.setNegativeButton(R.string.edit_button_cancel, this);
 	    return builder.create();
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.simpletodo;
+package com.smfandroid.sleektodo;
 
 
 import java.text.DateFormat;
@@ -39,8 +39,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.simpletodo.FontSizeDialog.NoticeDialogListener;
-import com.example.simpletodo.RemoveAllTodoConfirmDialog.RemoveAllTodosDialogListener;
+import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
+import com.smfandroid.sleektodo.RemoveAllTodoConfirmDialog.RemoveAllTodosDialogListener;
 
 
 public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, NoticeDialogListener, RemoveAllTodosDialogListener {
@@ -54,7 +54,8 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 	protected final String PREF_AUTO_KEYB="auto_keyboard";
 	protected final String PREF_IS_COLORBLIND="is_colorblind";
 	protected final String PREF_SIZE_FONT="font_size";
-
+	protected final String PREF_FIRST_START="first_start";
+		
 	private static final String logTag = "TodoListMainActivity" ;
 		
     CursorLoader cursorLoader;
@@ -85,9 +86,9 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         Button bc = (Button) findViewById(R.id.edit_button_critical);
         
         /* Colors defined in res/values/Colors.xml" */
-        bn.setBackgroundColor(getResources().getColor(R.color.list_normal));
+/*        bn.setBackgroundColor(getResources().getColor(R.color.list_normal));
         bi.setBackgroundColor(getResources().getColor(R.color.list_important));
-        bc.setBackgroundColor(getResources().getColor(R.color.list_critical));
+        bc.setBackgroundColor(getResources().getColor(R.color.list_critical)); */
         
         bn.setText(Html.fromHtml(getString(R.string.button_add_normal)));
         bi.setText(Html.fromHtml(getString(R.string.button_add_important)));
@@ -125,9 +126,35 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 				
 			}
 		});
+        
+        if(sharedPref.getBoolean(PREF_FIRST_START, true)) {
+        	Editor e = sharedPref.edit();
+        	e.putBoolean(PREF_FIRST_START, false);
+        	e.commit();
+        	populateTodoList();
+        	menu_showHelp(null);
+        }
     }
     
 
+	public void populateTodoList() {
+    	ContentValues initValues = new ContentValues();
+
+		initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, 0); // Always unchecked by default
+     	initValues.put(TodoItemContract.COLUMN_NAME_FLAG, TodoItemContract.TODO_FLAG_CRITICAL);
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_1));
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_2));
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
+		initValues.put(TodoItemContract.COLUMN_NAME_FLAG, TodoItemContract.TODO_FLAG_IMPORTANT);
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_3)); 		
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_4)); 
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
+		initValues.put(TodoItemContract.COLUMN_NAME_FLAG, TodoItemContract.TODO_FLAG_NORMAL);
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_5)); 
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);				
+	}
 
 	public void prepareListView() {
 		Log.i(logTag, "prepareListView");
@@ -280,7 +307,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		EditText t = (EditText)findViewById(R.id.edit_message);
 		t.setText("");
 	}
-	
+
 	
 	public void menu_changeColorblind(MenuItem mi) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -294,6 +321,11 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		todoDataAdapter.notifyDataSetChanged();
 
 
+	}
+	
+	public void menu_showHelp(MenuItem mi) {
+		HelpDialog hd = new HelpDialog();
+		hd.show(getFragmentManager(), "NoticeDialogFragment");
 	}
 	
 	public void menu_changeAutoKeyboard(MenuItem mi) {
@@ -324,7 +356,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 	
 	private void setAutoKeyboard(boolean isAutoKb) {
 		if(isAutoKb)
-			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 		else
 			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}

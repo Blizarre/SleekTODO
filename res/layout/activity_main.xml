@@ -27,7 +27,8 @@
 		        android:layout_width="0dp"
 		        android:layout_weight="100"
 		        android:onClick="button_addTodoItemNormal"
-		        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+		        android:textAppearance="?android:attr/textAppearance"
+		        android:background="@drawable/button_normal" />"
 
 		    <Button
 		        android:id="@+id/edit_button_important"
@@ -36,7 +37,9 @@
 		        android:layout_width="0dp"
 		        android:layout_weight="100"
 		        android:onClick="button_addTodoItemImportant"
-		        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+		        android:textAppearance="?android:attr/textAppearance" 
+		        android:background="@drawable/button_important" />
+		        />
 
 		    <Button
 		        android:id="@+id/edit_button_critical"
@@ -45,7 +48,8 @@
 		        android:layout_width="0dp"
 		        android:layout_weight="100"		        
 		        android:onClick="button_addTodoItemCritical"
-		        android:textAppearance="?android:attr/textAppearanceSmallInverse" />
+		        android:textAppearance="?android:attr/textAppearance" 
+		        android:background="@drawable/button_critical" />
 
 
 	</LinearLayout>

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="list_critical">#cc1100</color>
+    <color name="list_critical">#dc0f0f</color>
+    <color name="list_critical_pressed">#b40f0f</color>
 	<color name="list_important">#ff6600</color>
+	<color name="list_important_pressed">#c85000</color>
 	<color name="list_normal">#20aa20</color>
+	<color name="list_normal_pressed">#207820</color>
 	<!--  <color name="buttons_background">#202020</color>-->
 </resources>
