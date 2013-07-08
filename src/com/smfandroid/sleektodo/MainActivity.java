@@ -85,11 +85,6 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         Button bi = (Button) findViewById(R.id.edit_button_important);
         Button bc = (Button) findViewById(R.id.edit_button_critical);
         
-        /* Colors defined in res/values/Colors.xml" */
-/*        bn.setBackgroundColor(getResources().getColor(R.color.list_normal));
-        bi.setBackgroundColor(getResources().getColor(R.color.list_important));
-        bc.setBackgroundColor(getResources().getColor(R.color.list_critical)); */
-        
         bn.setText(Html.fromHtml(getString(R.string.button_add_normal)));
         bi.setText(Html.fromHtml(getString(R.string.button_add_important)));
         bc.setText(Html.fromHtml(getString(R.string.button_add_critical)));
@@ -98,9 +93,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         getActionBar().setDisplayShowTitleEnabled(false);
         
         TextView t = (TextView) findViewById(R.id.edit_message);
-        
-        
-        
+
         t.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -286,30 +279,70 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 	/** Callbacks **/
 	/***************/
 	
-	public void menu_eraseCheckedTodos(MenuItem item) {
+	/**
+	 *  Android 4.0.3 doesn't like AT ALL custom themes and onClick.
+	 *  That's why I have to use onOptionsItemSelected
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem mi) {
+		switch (mi.getItemId()) {
+			case R.id.action_auto_keyboard:
+				return menu_changeAutoKeyboard(mi);
+			case R.id.action_change_font:
+				return menu_changeFontSize(mi);
+			case R.id.action_colorblind_mode:
+				return menu_changeColorblind(mi);
+			case R.id.action_erase_all:
+				return menu_eraseAllTodos(mi);
+			case R.id.action_erase_checked:
+				return menu_eraseCheckedTodos(mi);
+			case R.id.action_erase_text:
+				return menu_erase_text(mi);
+			case R.id.action_help:
+				return menu_showHelp(mi);
+			case R.id.action_import_export:
+				return menu_showImportExport(mi);
+			default:
+				return false;
+		}
+		
+	}
+	
+	public boolean menu_eraseCheckedTodos(MenuItem item) {
     	int ret = getContentResolver().delete(TodoItemContract.TODO_URI, TodoItemContract.COLUMN_NAME_CHECKED + "=1", null);
 		String msg = String.format(getString(R.string.msg_elements_removed), ret);
     	Toast.makeText(this,  msg, Toast.LENGTH_SHORT).show();
+    	return true;
 	}
-	public void menu_eraseAllTodos(MenuItem view) {
+	public boolean menu_eraseAllTodos(MenuItem view) {
         DialogFragment dialog = new RemoveAllTodoConfirmDialog();
         dialog.show(getFragmentManager(), "RemoveAllTodoConfirmDialog");
+        return true;
 	}
 	
 
 	
-	public void menu_changeFontSize(MenuItem view) {
+	public boolean menu_changeFontSize(MenuItem view) {
         DialogFragment dialog = new FontSizeDialog();
-        dialog.show(getFragmentManager(), "NoticeDialogFragment");
+        dialog.show(getFragmentManager(), "ChangeFontSizeDialogFragment");
+        return true;
 	}	
+
+	public boolean menu_showImportExport(MenuItem mi) {
+		DialogFragment hd = new ImportExportDialog();
+		hd.show(getFragmentManager(), "ImprotExportDialogFragment");
+		return true;
+	}
 	
-	public void menu_erase_text(MenuItem view) {
+	
+	public boolean menu_erase_text(MenuItem view) {
 		EditText t = (EditText)findViewById(R.id.edit_message);
 		t.setText("");
+		return true;
 	}
 
 	
-	public void menu_changeColorblind(MenuItem mi) {
+	public boolean menu_changeColorblind(MenuItem mi) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 		Editor e = sharedPref.edit();
 		boolean newVal = ! mi.isChecked();
@@ -319,16 +352,19 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		Singleton.isColorBlind = newVal;
 		e.commit();
 		todoDataAdapter.notifyDataSetChanged();
-
-
+		return true;
 	}
 	
-	public void menu_showHelp(MenuItem mi) {
+	public boolean menu_showHelp(MenuItem mi) {
 		HelpDialog hd = new HelpDialog();
 		hd.show(getFragmentManager(), "NoticeDialogFragment");
+		return true;
 	}
+
+
 	
-	public void menu_changeAutoKeyboard(MenuItem mi) {
+	
+	public boolean menu_changeAutoKeyboard(MenuItem mi) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 		Editor e = sharedPref.edit();
 		boolean newVal = ! mi.isChecked();
@@ -337,6 +373,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		e.putBoolean(PREF_AUTO_KEYB, newVal);
 		setAutoKeyboard(newVal);
 		e.commit();
+		return true;
 	}
 	
 	

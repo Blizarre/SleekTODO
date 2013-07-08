@@ -7,7 +7,6 @@
     <string name="action_auto_keyboard">Afficher clavier auto</string>
 	<string name="action_change_font">Taille de police</string>
 	<string name="action_erase_text">Effacer texte</string>
-	
 	<string name="action_colorblind_mode">Utiliser des symboles</string>	
 	<string name="action_show_help">Afficher l\'aide</string>
 	<string name="action_hide_keyboard">Cacher</string>
@@ -19,7 +18,10 @@
     <string name="pick_font_size">Taille de police :</string>
     <string name="pick_areyousure">Êtes-vous certain ? TOUTES les tâches seront supprimées</string>
     
-
+    <string name="title_import_export">Sélectionnez le fichier de sauvegarde</string>
+    <string name="button_return">Retour</string>
+    <string name="button_export">Export</string>
+    <string name="button_import">Import</string>
 	
 	<string name="msg_help"><![CDATA[
 	    
@@ -58,7 +60,14 @@
 	<string name="msg_todo_added">Nouvelle tâche ajoutée</string>
 	<string name="msg_font_changed">Taille de police changée</string>
 	<string name="msg_elements_removed">%d élément(s) supprimé(s)</string>
-	
+	<string name="msg_export_empty">Pas d\'éléments à exporter</string>
+	<string name="msg_import_empty">Pas d\'éléments à importer</string>
+	<string name="msg_cannot_write_to_file">Ne peut ouvrir le fichier en écriture</string>
+	<string name="msg_error_writing_to_file">Erreur d\'écriture dans le fichier</string>
+	<string name="msg_error_reading_from_file">Erreur de lecture du fichier</string>
+	<string name="msg_elements_read">%d éléments importés</string>
+	<string name="msg_elements_written">%d éléments exportés</string>
+		
 	
 	<string name="todo_text_1">Ajout d\'un élément : tapez du texte et sélectionnez la priorité</string>
 	<string name="todo_text_2">Supprimez cet élément (appui long)</string>

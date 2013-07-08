@@ -38,27 +38,30 @@ public final class R {
         public static final int todo_list=0x7f020003;
     }
     public static final class id {
-        public static final int TextView01=0x7f0a0006;
+        public static final int TextView01=0x7f0a0007;
         public static final int TodoList=0x7f0a0005;
-        public static final int action_auto_keyboard=0x7f0a000d;
-        public static final int action_change_font=0x7f0a000c;
-        public static final int action_colorblind_mode=0x7f0a000e;
-        public static final int action_erase_all=0x7f0a000a;
-        public static final int action_erase_checked=0x7f0a000b;
-        public static final int action_erase_text=0x7f0a0010;
-        public static final int action_help=0x7f0a000f;
+        public static final int action_auto_keyboard=0x7f0a000e;
+        public static final int action_change_font=0x7f0a000d;
+        public static final int action_colorblind_mode=0x7f0a000f;
+        public static final int action_erase_all=0x7f0a000b;
+        public static final int action_erase_checked=0x7f0a000c;
+        public static final int action_erase_text=0x7f0a0011;
+        public static final int action_help=0x7f0a0010;
+        public static final int action_import_export=0x7f0a0012;
         public static final int buttons_group=0x7f0a0001;
         public static final int edit_button_critical=0x7f0a0004;
         public static final int edit_button_important=0x7f0a0003;
         public static final int edit_button_normal=0x7f0a0002;
         public static final int edit_message=0x7f0a0000;
-        public static final int listview_chkbox=0x7f0a0008;
-        public static final int listview_flag=0x7f0a0007;
-        public static final int listview_text=0x7f0a0009;
+        public static final int fragment_import_export=0x7f0a0006;
+        public static final int listview_chkbox=0x7f0a0009;
+        public static final int listview_flag=0x7f0a0008;
+        public static final int listview_text=0x7f0a000a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int listview_todo=0x7f030001;
+        public static final int import_export_fragment=0x7f030001;
+        public static final int listview_todo=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -74,39 +77,51 @@ public final class R {
         public static final int action_erase_checked=0x7f070000;
         public static final int action_erase_text=0x7f070004;
         public static final int action_hide_keyboard=0x7f070007;
+        public static final int action_import_export=0x7f070028;
         public static final int action_show_help=0x7f070006;
         /**   Misc  
   Misc  
          */
         public static final int app_name=0x7f070008;
-        public static final int button_add_critical=0x7f070012;
-        public static final int button_add_important=0x7f070011;
-        public static final int button_add_normal=0x7f070010;
-        public static final int button_continue=0x7f07000f;
-        public static final int edit_button_cancel=0x7f07000e;
+        public static final int button_add_critical=0x7f070015;
+        public static final int button_add_important=0x7f070014;
+        public static final int button_add_normal=0x7f070013;
+        public static final int button_continue=0x7f070012;
+        public static final int button_export=0x7f07000e;
+        public static final int button_import=0x7f07000f;
+        public static final int button_return=0x7f07000d;
+        public static final int edit_button_cancel=0x7f070011;
         /**   Buttons  
   Buttons  
          */
-        public static final int edit_button_remove_all=0x7f07000d;
+        public static final int edit_button_remove_all=0x7f070010;
         public static final int edit_message=0x7f070009;
-        public static final int msg_elements_removed=0x7f070015;
-        public static final int msg_font_changed=0x7f070014;
-        public static final int msg_help=0x7f07000c;
+        public static final int msg_cannot_write_to_file=0x7f07001b;
+        public static final int msg_elements_read=0x7f07001e;
+        public static final int msg_elements_removed=0x7f070018;
+        public static final int msg_elements_written=0x7f07001f;
+        public static final int msg_error_reading_from_file=0x7f07001d;
+        public static final int msg_error_writing_to_file=0x7f07001c;
+        public static final int msg_export_empty=0x7f070019;
+        public static final int msg_font_changed=0x7f070017;
+        public static final int msg_help=0x7f070020;
+        public static final int msg_import_empty=0x7f07001a;
         /**   Debug  
          */
-        public static final int msg_not_implemented=0x7f070016;
+        public static final int msg_not_implemented=0x7f070021;
         /**   Messages 
   Messages 
          */
-        public static final int msg_todo_added=0x7f070013;
-        public static final int msg_todo_added_nok=0x7f070017;
+        public static final int msg_todo_added=0x7f070016;
+        public static final int msg_todo_added_nok=0x7f070022;
         public static final int pick_areyousure=0x7f07000b;
         public static final int pick_font_size=0x7f07000a;
-        public static final int todo_text_1=0x7f070018;
-        public static final int todo_text_2=0x7f070019;
-        public static final int todo_text_3=0x7f07001a;
-        public static final int todo_text_4=0x7f07001b;
-        public static final int todo_text_5=0x7f07001c;
+        public static final int title_import_export=0x7f07000c;
+        public static final int todo_text_1=0x7f070023;
+        public static final int todo_text_2=0x7f070024;
+        public static final int todo_text_3=0x7f070025;
+        public static final int todo_text_4=0x7f070026;
+        public static final int todo_text_5=0x7f070027;
     }
     public static final class style {
         /** 
