@@ -9,15 +9,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,14 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +33,7 @@ import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
 import com.smfandroid.sleektodo.RemoveAllTodoConfirmDialog.RemoveAllTodosDialogListener;
 
 
-public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, NoticeDialogListener, RemoveAllTodosDialogListener {
+public class MainActivity extends Activity implements NoticeDialogListener, RemoveAllTodosDialogListener {
 
 	public static class Singleton {
 		private Singleton() {};
@@ -60,7 +50,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		
     CursorLoader cursorLoader;
     LoaderManager loadermanager;		
-	SimpleCursorAdapter todoDataAdapter;
+//	SimpleCursorAdapter todoDataAdapter;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +59,10 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
         loadermanager=getLoaderManager();
 
         setContentView(R.layout.activity_main);
+        ListOfTodoItems liste = (ListOfTodoItems)findViewById(R.id.TodoList);
+        liste.prepareListView();
 
-        prepareListView();
-
-        loadermanager.initLoader(1, null, this);
+        loadermanager.initLoader(0, null, liste);
 
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
        	boolean isAutoKb    = sharedPref.getBoolean(PREF_AUTO_KEYB, true);
@@ -149,128 +139,6 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);				
 	}
 
-	public void prepareListView() {
-		Log.i(logTag, "prepareListView");
-		
-        String[] from = {
-        		TodoItemContract.COLUMN_NAME_CHECKED,
-        		TodoItemContract.COLUMN_NAME_TEXT,
-        		TodoItemContract.COLUMN_NAME_FLAG
-        };
-        
-        int[] to = {
-        		R.id.listview_chkbox,
-        		R.id.listview_text,
-        		R.id.listview_flag
-        };
-        
-        // NO cursor now, async with the loader
-        todoDataAdapter = new SimpleCursorAdapter(this, R.layout.listview_todo, null, from, to, 0);
-
-        addAdapterListeners();
-        addListListeners();
-		
-        ListView v = (ListView) findViewById(R.id.TodoList);
-        v.setAdapter(todoDataAdapter);
-	}
-
-	protected void addListListeners() {
-		ListView v = (ListView) findViewById(R.id.TodoList);
-        
-		v.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				Log.i(logTag, "id select : " + id);
-				ContentValues initValues = new ContentValues();
-				Cursor c =todoDataAdapter.getCursor(); 
-				c.moveToPosition(position);
-				int val = c.getInt(c.getColumnIndex(TodoItemContract.COLUMN_NAME_CHECKED));
-				if(val ==0 )
-					initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, 1);
-				else
-					initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, 0);
-				
-		    	int ret = getContentResolver().update(TodoItemContract.TODO_URI, initValues, "_ID = "+id, null);
-		    	Log.v(logTag, ret + " elements changes");
-		    	assert ret == 1;
-			}
-		});
-		
-		v.setOnItemLongClickListener(new OnItemLongClickListener() {
-			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-				Log.i(logTag, "id select : " + id);
-
-				Cursor c =todoDataAdapter.getCursor(); 
-				c.moveToPosition(position);
-				String val = c.getString(c.getColumnIndex(TodoItemContract.COLUMN_NAME_TEXT));
-
-				EditText t = (EditText)findViewById(R.id.edit_message);
-				t.setText(val);
-				
-		    	int ret = getContentResolver().delete(TodoItemContract.TODO_URI, TodoItemContract.COLUMN_NAME_ID+ "="+id, null);
-		    	Log.v(logTag, ret + " elements changes");
-		    	assert ret == 1;
-		    	return ret == 1;
-			}
-		});
-	}
-
-	protected void addAdapterListeners() {
-		todoDataAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-
-            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-            	if(columnIndex == cursor.getColumnIndex(TodoItemContract.COLUMN_NAME_CHECKED)) {
-            		CheckBox cb = (CheckBox) view;
-            		cb.setChecked(cursor.getInt(columnIndex) != 0);
-            		cb.setText("");
-            		return true;
-            	}
-            	if(columnIndex == cursor.getColumnIndex(TodoItemContract.COLUMN_NAME_TEXT)) {
-            		TextView et = (TextView) view;
-            		et.setText(cursor.getString(columnIndex));
-            		et.setTextAppearance(et.getContext(), Singleton.size);
-            		return true;
-            	}            	
-            	if(columnIndex == cursor.getColumnIndex(TodoItemContract.COLUMN_NAME_FLAG)) {
-            		TextView tv = (TextView) view;
-
-            		tv.setTextAppearance(tv.getContext(), Singleton.size);
-            		tv.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-    				tv.setText(" ");
-
-            		switch(cursor.getInt(columnIndex)) {
-            		case TodoItemContract.TODO_FLAG_CRITICAL:
-            			if(Singleton.isColorBlind) {
-            				tv.setText("!!");
-            				tv.setBackgroundColor(getResources().getColor(android.R.color.background_light));
-            			} else {
-            				tv.setBackgroundColor(getResources().getColor(R.color.list_critical));
-            			}
-            			break;
-            		case TodoItemContract.TODO_FLAG_IMPORTANT:
-            			if(Singleton.isColorBlind) {
-            				tv.setText("++");
-            				tv.setBackgroundColor(getResources().getColor(android.R.color.background_light));
-            			} else {
-            				tv.setBackgroundColor(getResources().getColor(R.color.list_important));
-            			}
-            			break;
-            		case TodoItemContract.TODO_FLAG_NORMAL:
-            			if(Singleton.isColorBlind) { 
-            				tv.setText("..");
-            				tv.setBackgroundColor(getResources().getColor(android.R.color.background_light));
-            			} else {
-            				tv.setBackgroundColor(getResources().getColor(R.color.list_normal));
-            			}
-            			break;
-            		}
-            		return true;
-            	}
-
-            	return false;
-            }
-        });
-	}
-	
 	
 	
 	
@@ -351,8 +219,13 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 		e.putBoolean(PREF_IS_COLORBLIND, newVal);
 		Singleton.isColorBlind = newVal;
 		e.commit();
-		todoDataAdapter.notifyDataSetChanged();
+		notifyCurrentListDataChanged();
 		return true;
+	}
+	
+	public void notifyCurrentListDataChanged() {
+		ListOfTodoItems l = (ListOfTodoItems)findViewById(R.id.TodoList);
+		l.getCursorAdapter().notifyDataSetChanged();
 	}
 	
 	public boolean menu_showHelp(MenuItem mi) {
@@ -424,45 +297,12 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
     	} else {
     		Toast.makeText(this,  R.string.msg_todo_added_nok,  Toast.LENGTH_SHORT).show();
     	}
-    	todoDataAdapter.notifyDataSetChanged();
+    	notifyCurrentListDataChanged();
     }
 
     
     
-    
-    /************/
-    /** Loader **/
-    /************/
-    
-    @Override
-    public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
-    	Log.v(logTag, "onCreateLoader");
-    	String[] projection = {
-    			TodoItemContract._ID,
-    			TodoItemContract.COLUMN_NAME_CHECKED,
-        		TodoItemContract.COLUMN_NAME_TEXT,
-        		TodoItemContract.COLUMN_NAME_FLAG 
-        		};
-    	
-    	cursorLoader = new CursorLoader(this, TodoItemContract.TODO_URI, projection, null, null, null);
-    	Log.v(logTag, "Cursor Loader created");
-    	return cursorLoader;
 
-    }    		
-    
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader,Cursor cursor) {
-    	Log.v(logTag, "Load finished");
-    	if(todoDataAdapter!=null && cursor!=null)
-    		todoDataAdapter.swapCursor(cursor); //swap the new cursor in.
-    	else
-    		Log.v(logTag,"OnLoadFinished: todoDataAdapter is null");
-       }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> arg0) {
-    	onLoadFinished(arg0, null);
-    }
 
     
     
@@ -504,7 +344,7 @@ public class MainActivity extends Activity implements LoaderCallbacks<Cursor>, N
 
 		e.commit();
 		
-		todoDataAdapter.notifyDataSetChanged();
+		notifyCurrentListDataChanged();
 		Toast.makeText(this, R.string.msg_font_changed, Toast.LENGTH_SHORT).show();
 	}
 
