@@ -3,10 +3,9 @@ package com.smfandroid.sleektodo;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import com.smfandroid.sleektodo.R;
+import android.support.v4.app.DialogFragment;
 
 public class RemoveAllTodoConfirmDialog extends DialogFragment implements DialogInterface.OnClickListener {
 

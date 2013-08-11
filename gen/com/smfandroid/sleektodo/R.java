@@ -38,30 +38,32 @@ public final class R {
         public static final int todo_list=0x7f020003;
     }
     public static final class id {
-        public static final int TextView01=0x7f0a0007;
-        public static final int TodoList=0x7f0a0005;
-        public static final int action_auto_keyboard=0x7f0a000e;
-        public static final int action_change_font=0x7f0a000d;
-        public static final int action_colorblind_mode=0x7f0a000f;
-        public static final int action_erase_all=0x7f0a000b;
-        public static final int action_erase_checked=0x7f0a000c;
-        public static final int action_erase_text=0x7f0a0011;
-        public static final int action_help=0x7f0a0010;
-        public static final int action_import_export=0x7f0a0012;
+        public static final int TextView01=0x7f0a0008;
+        public static final int TodoList=0x7f0a0006;
+        public static final int action_auto_keyboard=0x7f0a000f;
+        public static final int action_change_font=0x7f0a000e;
+        public static final int action_colorblind_mode=0x7f0a0010;
+        public static final int action_erase_all=0x7f0a000c;
+        public static final int action_erase_checked=0x7f0a000d;
+        public static final int action_erase_text=0x7f0a0012;
+        public static final int action_help=0x7f0a0011;
+        public static final int action_import_export=0x7f0a0013;
         public static final int buttons_group=0x7f0a0001;
         public static final int edit_button_critical=0x7f0a0004;
         public static final int edit_button_important=0x7f0a0003;
         public static final int edit_button_normal=0x7f0a0002;
         public static final int edit_message=0x7f0a0000;
-        public static final int fragment_import_export=0x7f0a0006;
-        public static final int listview_chkbox=0x7f0a0009;
-        public static final int listview_flag=0x7f0a0008;
-        public static final int listview_text=0x7f0a000a;
+        public static final int fragment_import_export=0x7f0a0007;
+        public static final int listview_chkbox=0x7f0a000a;
+        public static final int listview_flag=0x7f0a0009;
+        public static final int listview_text=0x7f0a000b;
+        public static final int pager_todo=0x7f0a0005;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int import_export_fragment=0x7f030001;
-        public static final int listview_todo=0x7f030002;
+        public static final int fragment_todo=0x7f030001;
+        public static final int import_export_fragment=0x7f030002;
+        public static final int listview_todo=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f090000;

@@ -4,25 +4,33 @@ package com.smfandroid.sleektodo;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,8 +41,75 @@ import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
 import com.smfandroid.sleektodo.RemoveAllTodoConfirmDialog.RemoveAllTodosDialogListener;
 
 
-public class MainActivity extends Activity implements NoticeDialogListener, RemoveAllTodosDialogListener {
+public class MainActivity extends FragmentActivity implements NoticeDialogListener, RemoveAllTodosDialogListener {
 
+	// Instances of this class are fragments representing a single
+	// object in our collection.
+	public static class FragmentTodo extends Fragment {
+		
+		public final String TAG = getClass().getSimpleName(); 
+	    public static final String ARG_CATEGORY = "category";
+
+	    public void notifyTodoDataChanged() {
+	        ListOfTodoItems list = (ListOfTodoItems)getView().findViewById(R.id.TodoList);
+	        list.getCursorAdapter().notifyDataSetChanged();
+	    }
+	    
+	    @Override
+	    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	    	super.onCreateView(inflater, container, savedInstanceState);
+	        // The last two arguments ensure LayoutParams are inflated
+	        // properly.
+	        Bundle args = getArguments();
+	        int category = args.getInt(ARG_CATEGORY);
+	    	Log.i(TAG, "Fragment creation for category " + category);
+	    	
+	        View rootView = inflater.inflate(
+	                R.layout.fragment_todo, container, false);
+
+	        ListOfTodoItems list = (ListOfTodoItems)rootView.findViewById(R.id.TodoList);
+	        list.prepareListView();
+	        LoaderManager ldM = getLoaderManager();
+	        ldM.initLoader(category, null, list);
+	        ((MainActivity)getActivity()).addTodoFragment(category, this);
+	        return rootView;
+	    }
+	}
+
+	
+	// Since this is an object collection, use a FragmentStatePagerAdapter,
+	// and NOT a FragmentPagerAdapter.
+	public class TodoPagerAdapter extends FragmentPagerAdapter {
+	    
+		public final String TAG = getClass().getSimpleName(); 
+
+		public TodoPagerAdapter(FragmentManager fm) {
+	        super(fm);
+	    }
+
+	    @Override
+	    public Fragment getItem(int i) {
+	    	Log.i(TAG, "Item needed for category " + i);
+
+	        Fragment fragment = new FragmentTodo();
+	        Bundle args = new Bundle();
+	        args.putInt(FragmentTodo.ARG_CATEGORY, i);
+	        fragment.setArguments(args);
+	        return fragment;
+	    }
+
+	    @Override
+	    public int getCount() {
+	        return 3;
+	    }
+
+	    @Override
+	    public CharSequence getPageTitle(int position) {
+	        return "" + (position + 1);
+	    }
+	}
+
+	
 	public static class Singleton {
 		private Singleton() {};
 		public static int size;
@@ -48,24 +123,15 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 		
 	private static final String logTag = "TodoListMainActivity" ;
 		
-    CursorLoader cursorLoader;
-    LoaderManager loadermanager;		
-//	SimpleCursorAdapter todoDataAdapter;
-	
+	SparseArray<FragmentTodo> mListOfTodoFragments;
+		
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        loadermanager=getLoaderManager();
-
+        mListOfTodoFragments = new SparseArray<MainActivity.FragmentTodo>();
+        
         setContentView(R.layout.activity_main);
-        ListOfTodoItems liste = (ListOfTodoItems)findViewById(R.id.TodoList);
-
-        // Register callbacks for the loader and other internal things
-        liste.prepareListView();
-
-        // Start the loader, with callbacks in liste 
-        loadermanager.initLoader(0, null, liste);
 
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
        	boolean isAutoKb    = sharedPref.getBoolean(PREF_AUTO_KEYB, true);
@@ -73,6 +139,8 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
        	Singleton.isColorBlind = sharedPref.getBoolean(PREF_IS_COLORBLIND, false);
        	
        	setAutoKeyboard(isAutoKb);
+       	ViewPager v = (ViewPager)findViewById(R.id.pager_todo);
+       	v.setAdapter(new TodoPagerAdapter(getSupportFragmentManager()));
        	
         Button bn = (Button) findViewById(R.id.edit_button_normal);
         Button bi = (Button) findViewById(R.id.edit_button_important);
@@ -122,6 +190,11 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
         }
     }
     
+
+	public void addTodoFragment(int category, FragmentTodo fragmentTodo) {
+		mListOfTodoFragments.put(category, fragmentTodo);
+	}
+
 
 	public void populateTodoList() {
     	ContentValues initValues = new ContentValues();
@@ -188,7 +261,7 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 	}
 	public boolean menu_eraseAllTodos(MenuItem view) {
         DialogFragment dialog = new RemoveAllTodoConfirmDialog();
-        dialog.show(getFragmentManager(), "RemoveAllTodoConfirmDialog");
+        dialog.show(getSupportFragmentManager(), "RemoveAllTodoConfirmDialog");
         return true;
 	}
 	
@@ -196,13 +269,13 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 	
 	public boolean menu_changeFontSize(MenuItem view) {
         DialogFragment dialog = new FontSizeDialog();
-        dialog.show(getFragmentManager(), "ChangeFontSizeDialogFragment");
+        dialog.show(getSupportFragmentManager(), "ChangeFontSizeDialogFragment");
         return true;
 	}	
 
 	public boolean menu_showImportExport(MenuItem mi) {
 		DialogFragment hd = new ImportExportDialog();
-		hd.show(getFragmentManager(), "ImprotExportDialogFragment");
+		hd.show(getSupportFragmentManager(), "ImprotExportDialogFragment");
 		return true;
 	}
 	
@@ -228,10 +301,20 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 	}
 	
 	public void notifyCurrentListDataChanged() {
-		ListOfTodoItems l = (ListOfTodoItems)findViewById(R.id.TodoList);
-		l.getCursorAdapter().notifyDataSetChanged();
+		int cat = getCurrentCategory();
+		mListOfTodoFragments.get(cat).notifyTodoDataChanged();
 	}
-	
+
+	public void setEditMessage(String s) {
+		EditText t = (EditText)findViewById(R.id.edit_message);
+		t.setText(s);
+	}
+    
+    private int getCurrentCategory() {
+		ViewPager vPag = (ViewPager)findViewById(R.id.pager_todo);
+		return vPag.getCurrentItem();
+	}
+    
 	public boolean menu_showHelp(MenuItem mi) {
 		HelpDialog hd = new HelpDialog();
 		hd.show(getFragmentManager(), "NoticeDialogFragment");
@@ -278,9 +361,6 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
     @SuppressLint("SimpleDateFormat")
 	public void addTodoItem(View view, int flag) {
     	EditText t   = (EditText) findViewById(R.id.edit_message);
-/*    	DatePicker dp = (DatePicker) findViewById(R.id.edit_date); 
-    	GregorianCalendar c = new GregorianCalendar( dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
-    	*/
     	
     	Log.i(logTag, "New ToDo Item created");
     	
@@ -293,6 +373,8 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 		
 		initValues.put(TodoItemContract.COLUMN_NAME_FLAG, flag);
 		initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, 0); // Always unchecked by default
+		
+		initValues.put(TodoItemContract.COLUMN_NAME_CATEGORY, getCurrentCategory()); // Always unchecked by default
     	
     	Uri ret_URI = getContentResolver().insert(TodoItemContract.TODO_URI, initValues);
     	
@@ -309,8 +391,10 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 
 
     
-    
-    @Override
+
+
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 

@@ -1,22 +1,23 @@
 package com.smfandroid.sleektodo;
 
-import android.app.LoaderManager.LoaderCallbacks;
+
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.CursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.smfandroid.sleektodo.MainActivity.Singleton;
@@ -82,8 +83,10 @@ public class ListOfTodoItems extends ListView implements LoaderCallbacks<Cursor>
 				c.moveToPosition(position);
 				String val = c.getString(c.getColumnIndex(TodoItemContract.COLUMN_NAME_TEXT));
 
-				EditText t = (EditText)findViewById(R.id.edit_message);
-				t.setText(val);
+				Log.i(TAG, "long click : " + getContext().getClass().getSimpleName());
+				
+				// I don't like it at all but it is sooo convenient. And I don't have to add another layer of explicit parameters
+				((MainActivity)getContext()).setEditMessage(val);
 				
 		    	int ret = getContext().getContentResolver().delete(TodoItemContract.TODO_URI, TodoItemContract.COLUMN_NAME_ID+ "="+id, null);
 		    	Log.v(TAG, ret + " elements changes");

@@ -28,7 +28,7 @@
 		        android:layout_weight="100"
 		        android:onClick="button_addTodoItemNormal"
 		        android:textAppearance="?android:attr/textAppearance"
-		        android:background="@drawable/button_normal" />"
+		        android:background="@drawable/button_normal" />
 
 		    <Button
 		        android:id="@+id/edit_button_important"
@@ -39,7 +39,6 @@
 		        android:onClick="button_addTodoItemImportant"
 		        android:textAppearance="?android:attr/textAppearance" 
 		        android:background="@drawable/button_important" />
-		        />
 
 		    <Button
 		        android:id="@+id/edit_button_critical"
@@ -54,16 +53,10 @@
 
 	</LinearLayout>
 
-	<com.smfandroid.sleektodo.ListOfTodoItems
-    android:id="@+id/TodoList"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-	</com.smfandroid.sleektodo.ListOfTodoItems>
-
-<!--  	<android.support.v4.view.ViewPager
-	    android:id="@+id/pager"
+	<android.support.v4.view.ViewPager
+	    android:id="@+id/pager_todo"
 	    android:layout_width="match_parent"
-	    android:layout_height="match_parent" /> -->
+	    android:layout_height="match_parent" />
 
 
 </LinearLayout>
