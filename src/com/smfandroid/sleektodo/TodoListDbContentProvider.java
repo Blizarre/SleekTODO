@@ -15,6 +15,8 @@ import android.util.Log;
 
 public class TodoListDbContentProvider extends ContentProvider {
 
+	protected final String TAG = getClass().getSimpleName();
+	
 	private static final String logTag = "TodoListDbContentProvider" ;
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
@@ -33,6 +35,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 	    private static final String INT_TYPE = " INTEGER ";
 	    private static final String COMMA_SEP = ",";
 	    private static final String ADD_KEYWORD = " ADD ";
+	    private static final String SET_KEYWORD = " SET ";
 	    
 	    public static final String SQL_CREATE_ENTRIES =
 	        "CREATE TABLE " + TodoItemContract.TABLE_TODO_NAME + " (" +
@@ -41,6 +44,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 	        TodoItemContract.COLUMN_NAME_LONGTEXT + TEXT_TYPE + COMMA_SEP +
 	        TodoItemContract.COLUMN_NAME_DATE + TEXT_TYPE + COMMA_SEP +
 	        TodoItemContract.COLUMN_NAME_CHECKED + INT_TYPE + COMMA_SEP +
+	        TodoItemContract.COLUMN_NAME_CATEGORY + TEXT_TYPE + COMMA_SEP +
 	        TodoItemContract.COLUMN_NAME_FLAG + INT_TYPE + 	        
 	        " );";
 
@@ -57,8 +61,12 @@ public class TodoListDbContentProvider extends ContentProvider {
 		        TodoItemContract._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
 		        TodoItemContract.COLUMN_NAME_TEXT + TEXT_TYPE + COMMA_SEP +
 		        " );";
-	    
-	    
+
+	    // Set default values for the category data
+	    public static final String SQL_UPGRADE_UPDATE_VALUES =
+		        "UPDATE " + TodoItemContract.TABLE_TODO_NAME + SET_KEYWORD +
+		        TodoItemContract.COLUMN_NAME_CATEGORY + "=0;";
+
 	    public static final String SQL_DELETE_ENTRIES =
 	        "DROP TABLE IF EXISTS " + TodoItemContract.TABLE_TODO_NAME;
 	
@@ -77,10 +85,12 @@ public class TodoListDbContentProvider extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.d(logTag, SQL_DELETE_ENTRIES);
 			if(oldVersion < 5) { 
+				Log.d(logTag, SQL_UPGRADE_CREATE_CATEGORY_COLUMN);
 				db.execSQL(SQL_UPGRADE_CREATE_CATEGORY_COLUMN);
+				Log.d(logTag, SQL_UPGRADE_CREATE_CATEGORY_TABLE);
 				db.execSQL(SQL_UPGRADE_CREATE_CATEGORY_TABLE);
+				db.execSQL(SQL_UPGRADE_UPDATE_VALUES);
 			}
 			onCreate(db);
 		}
@@ -117,6 +127,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 	}
 
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+		Log.i(TAG, "Query from uri " + uri.toString());
 		String category = null;
 		
 	    switch (sUriMatcher.match(uri)) {
@@ -127,6 +138,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 
 	        	category = uri.getQueryParameter(TodoItemContract.CONTENT_PARAM_CATEGORY);
 	        	if(category != null) {
+	        		selection = TodoItemContract.COLUMN_NAME_CATEGORY + "=?";
 	        		selectionArgs = new String[1];
 	        		selectionArgs[0] = category;
 	        	}
@@ -184,4 +196,10 @@ public class TodoListDbContentProvider extends ContentProvider {
 		getContext().getContentResolver().notifyChange(TodoItemContract.TODO_URI, null);
 		return ret;
 	}
+	
+	public static Uri getUriForCategory(int arg0) {
+		Uri ret = TodoItemContract.TODO_URI.buildUpon().appendQueryParameter(TodoItemContract.CONTENT_PARAM_CATEGORY, Integer.toString(arg0)).build();
+		return ret;
+	}
+	
 }

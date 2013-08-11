@@ -165,7 +165,7 @@ public class ListOfTodoItems extends ListView implements LoaderCallbacks<Cursor>
         		TodoItemContract.COLUMN_NAME_FLAG 
         		};
     	
-    	CursorLoader cursorLoader = new CursorLoader(getContext(), TodoItemContract.getUriForCategory(idCategory), projection, null, null, null);
+    	CursorLoader cursorLoader = new CursorLoader(getContext(), TodoListDbContentProvider.getUriForCategory(idCategory), projection, null, null, null);
     	Log.v(TAG, "Cursor Loader created");
     	return cursorLoader;
 

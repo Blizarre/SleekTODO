@@ -28,11 +28,6 @@ public abstract class TodoItemContract implements BaseColumns {
     public static final int TODO_FLAG_NORMAL = 0;
     public static final int TODO_FLAG_IMPORTANT = 1;
     public static final int TODO_FLAG_CRITICAL = 2;
-    
-	public static Uri getUriForCategory(int arg0) {
-		Uri ret = TODO_URI.buildUpon().appendQueryParameter("CONTENT_PARAM_CATEGORY", Integer.toString(arg0)).build();
-		return ret;
-	}
 	    
 
 }

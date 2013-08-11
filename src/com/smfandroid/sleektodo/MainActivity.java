@@ -60,8 +60,11 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
 
         setContentView(R.layout.activity_main);
         ListOfTodoItems liste = (ListOfTodoItems)findViewById(R.id.TodoList);
+
+        // Register callbacks for the loader and other internal things
         liste.prepareListView();
 
+        // Start the loader, with callbacks in liste 
         loadermanager.initLoader(0, null, liste);
 
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -124,6 +127,7 @@ public class MainActivity extends Activity implements NoticeDialogListener, Remo
     	ContentValues initValues = new ContentValues();
 
 		initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, 0); // Always unchecked by default
+		initValues.put(TodoItemContract.COLUMN_NAME_CATEGORY, 0); // Category 0 by default 
      	initValues.put(TodoItemContract.COLUMN_NAME_FLAG, TodoItemContract.TODO_FLAG_CRITICAL);
 		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_1));
 		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
