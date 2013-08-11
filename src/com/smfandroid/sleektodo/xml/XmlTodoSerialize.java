@@ -58,21 +58,31 @@ public class XmlTodoSerialize {
 	public void exportTodoItem(TodoItem todo) throws IOException, TodoAddException   {
 		try {
 			mSerializer.startTag("", XmlContract.TAG_TODOITEM);
+				
 				mSerializer.startTag("", XmlContract.TAG_TEXT);
 					mSerializer.text(todo.mText);
 				mSerializer.endTag("", XmlContract.TAG_TEXT);
+				
+				mSerializer.startTag("", XmlContract.TAG_CATEGORY);
+					mSerializer.text(""+todo.mCategory);
+				mSerializer.endTag("", XmlContract.TAG_CATEGORY);				
+				
 				mSerializer.startTag("", XmlContract.TAG_LONGTEXT);
 					mSerializer.text(todo.mLongText);
 				mSerializer.endTag("", XmlContract.TAG_LONGTEXT);
+				
 				mSerializer.startTag("", XmlContract.TAG_DATE);
 					mSerializer.text(todo.mDate);
 				mSerializer.endTag("", XmlContract.TAG_DATE);			
+				
 				mSerializer.startTag("", XmlContract.TAG_FLAG);
 					mSerializer.text(""+todo.mFlag);
 				mSerializer.endTag("", XmlContract.TAG_FLAG);
+				
 				mSerializer.startTag("", XmlContract.TAG_CHECKED);
 					mSerializer.text(""+todo.mIsChecked);
 				mSerializer.endTag("", XmlContract.TAG_CHECKED);
+				
 			mSerializer.endTag("",  XmlContract.TAG_TODOITEM);
 		} catch (IllegalArgumentException e) {
 			throw new TodoAddException("internal error : " + e.getMessage());

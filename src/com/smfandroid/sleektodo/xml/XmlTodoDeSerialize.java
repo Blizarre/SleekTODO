@@ -65,6 +65,8 @@ public class XmlTodoDeSerialize {
 	                String name = property.getNodeName();
 	                if (name.equalsIgnoreCase(XmlContract.TAG_CHECKED)){
 	                    ti.mIsChecked = (getValueIfItExists(property.getFirstChild()).equals("true"));
+	                } else if (name.equalsIgnoreCase(XmlContract.TAG_CATEGORY)){
+		                ti.mCategory = Integer.valueOf(getValueIfItExists(property.getFirstChild()));
 	                } else if (name.equalsIgnoreCase(XmlContract.TAG_DATE)){
 	                    ti.mDate = getValueIfItExists(property.getFirstChild());
 	                } else if (name.equalsIgnoreCase(XmlContract.TAG_TEXT)){

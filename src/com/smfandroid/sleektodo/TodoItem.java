@@ -5,6 +5,7 @@ import android.database.Cursor;
 public class TodoItem {
 	public String mText;
 	public String mDate;
+	public int mCategory;
 	public boolean mIsChecked;
 	public String mLongText;
 	public int mFlag;
@@ -42,6 +43,7 @@ public class TodoItem {
 		todoI.mText = getIfExistString(c, TodoItemContract.COLUMN_NAME_TEXT);
 		todoI.mFlag = getIfExistInt(c, TodoItemContract.COLUMN_NAME_FLAG);
 		todoI.mDate = getIfExistString(c, TodoItemContract.COLUMN_NAME_DATE);
+		todoI.mCategory = getIfExistInt(c, TodoItemContract.COLUMN_NAME_CATEGORY);
 		todoI.mLongText = getIfExistString(c, TodoItemContract.COLUMN_NAME_LONGTEXT);
 		todoI.mIsChecked = (getIfExistInt(c, TodoItemContract.COLUMN_NAME_CHECKED) != 0);
 		return todoI;

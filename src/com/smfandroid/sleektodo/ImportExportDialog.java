@@ -93,6 +93,7 @@ public class ImportExportDialog extends DialogFragment implements OnClickListene
 				TodoItemContract.COLUMN_NAME_TEXT,
 				TodoItemContract.COLUMN_NAME_CHECKED,
 				TodoItemContract.COLUMN_NAME_FLAG,
+				TodoItemContract.COLUMN_NAME_CATEGORY,
 		};
 		XmlTodoSerialize ser = new XmlTodoSerialize();
 		Cursor c = this.getActivity().getContentResolver().query(TodoItemContract.TODO_URI, projection, null, null, null);
@@ -140,6 +141,7 @@ public class ImportExportDialog extends DialogFragment implements OnClickListene
 				initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, t.mIsChecked); // Always unchecked by default
 		     	initValues.put(TodoItemContract.COLUMN_NAME_FLAG, t.mFlag);
 				initValues.put(TodoItemContract.COLUMN_NAME_TEXT, t.mText);
+				initValues.put(TodoItemContract.COLUMN_NAME_CATEGORY, t.mCategory);
 				initValues.put(TodoItemContract.COLUMN_NAME_LONGTEXT , t.mLongText);
 				initValues.put(TodoItemContract.COLUMN_NAME_DATE , t.mDate);
 				getActivity().getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
