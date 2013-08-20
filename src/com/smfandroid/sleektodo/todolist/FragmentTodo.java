@@ -1,10 +1,5 @@
 package com.smfandroid.sleektodo.todolist;
 
-import com.smfandroid.sleektodo.MainActivity;
-import com.smfandroid.sleektodo.R;
-import com.smfandroid.sleektodo.R.id;
-import com.smfandroid.sleektodo.R.layout;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -12,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.smfandroid.sleektodo.MainActivity;
+import com.smfandroid.sleektodo.R;
 
 // Instances of this class are fragments representing a single
 // object in our collection.

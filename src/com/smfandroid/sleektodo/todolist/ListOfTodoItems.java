@@ -20,13 +20,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.smfandroid.sleektodo.MainActivity;
+import com.smfandroid.sleektodo.MainActivity.Singleton;
 import com.smfandroid.sleektodo.R;
 import com.smfandroid.sleektodo.TodoItemContract;
 import com.smfandroid.sleektodo.TodoListDbContentProvider;
-import com.smfandroid.sleektodo.MainActivity.Singleton;
-import com.smfandroid.sleektodo.R.color;
-import com.smfandroid.sleektodo.R.id;
-import com.smfandroid.sleektodo.R.layout;
 
 public class ListOfTodoItems extends ListView implements LoaderCallbacks<Cursor> {
 	
