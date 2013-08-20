@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.smfandroid.sleektodo.ListOfTodoItems xmlns:android="http://schemas.android.com/apk/res/android"
+<com.smfandroid.sleektodo.todolist.ListOfTodoItems xmlns:android="http://schemas.android.com/apk/res/android"
    android:id="@+id/TodoList"
    android:layout_width="match_parent"
    android:layout_height="wrap_content" >

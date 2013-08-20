@@ -15,22 +15,18 @@ import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
+import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
+import android.text.GetChars;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,77 +35,12 @@ import android.widget.Toast;
 
 import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
 import com.smfandroid.sleektodo.RemoveAllTodoConfirmDialog.RemoveAllTodosDialogListener;
+import com.smfandroid.sleektodo.todolist.FragmentTodo;
+import com.smfandroid.sleektodo.todolist.TodoPagerAdapter;
 
 
 public class MainActivity extends FragmentActivity implements NoticeDialogListener, RemoveAllTodosDialogListener {
 
-	// Instances of this class are fragments representing a single
-	// object in our collection.
-	public static class FragmentTodo extends Fragment {
-		
-		public final String TAG = getClass().getSimpleName(); 
-	    public static final String ARG_CATEGORY = "category";
-
-	    public void notifyTodoDataChanged() {
-	        ListOfTodoItems list = (ListOfTodoItems)getView().findViewById(R.id.TodoList);
-	        list.getCursorAdapter().notifyDataSetChanged();
-	    }
-	    
-	    @Override
-	    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	    	super.onCreateView(inflater, container, savedInstanceState);
-	        // The last two arguments ensure LayoutParams are inflated
-	        // properly.
-	        Bundle args = getArguments();
-	        int category = args.getInt(ARG_CATEGORY);
-	    	Log.i(TAG, "Fragment creation for category " + category);
-	    	
-	        View rootView = inflater.inflate(
-	                R.layout.fragment_todo, container, false);
-
-	        ListOfTodoItems list = (ListOfTodoItems)rootView.findViewById(R.id.TodoList);
-	        list.prepareListView();
-	        LoaderManager ldM = getLoaderManager();
-	        ldM.initLoader(category, null, list);
-	        ((MainActivity)getActivity()).addTodoFragment(category, this);
-	        return rootView;
-	    }
-	}
-
-	
-	// Since this is an object collection, use a FragmentStatePagerAdapter,
-	// and NOT a FragmentPagerAdapter.
-	public class TodoPagerAdapter extends FragmentPagerAdapter {
-	    
-		public final String TAG = getClass().getSimpleName(); 
-
-		public TodoPagerAdapter(FragmentManager fm) {
-	        super(fm);
-	    }
-
-	    @Override
-	    public Fragment getItem(int i) {
-	    	Log.i(TAG, "Item needed for category " + i);
-
-	        Fragment fragment = new FragmentTodo();
-	        Bundle args = new Bundle();
-	        args.putInt(FragmentTodo.ARG_CATEGORY, i);
-	        fragment.setArguments(args);
-	        return fragment;
-	    }
-
-	    @Override
-	    public int getCount() {
-	        return 3;
-	    }
-
-	    @Override
-	    public CharSequence getPageTitle(int position) {
-	        return "" + (position + 1);
-	    }
-	}
-
-	
 	public static class Singleton {
 		private Singleton() {};
 		public static int size;
@@ -121,7 +52,7 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	protected final String PREF_SIZE_FONT="font_size";
 	protected final String PREF_FIRST_START="first_start";
 		
-	private static final String logTag = "TodoListMainActivity" ;
+	private final String TAG = getClass().getSimpleName();
 		
 	SparseArray<FragmentTodo> mListOfTodoFragments;
 		
@@ -129,7 +60,7 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        mListOfTodoFragments = new SparseArray<MainActivity.FragmentTodo>();
+        mListOfTodoFragments = new SparseArray<FragmentTodo>();
         
         setContentView(R.layout.activity_main);
 
@@ -137,6 +68,9 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
        	boolean isAutoKb    = sharedPref.getBoolean(PREF_AUTO_KEYB, true);
        	Singleton.size = sharedPref.getInt(PREF_SIZE_FONT, 1);
        	Singleton.isColorBlind = sharedPref.getBoolean(PREF_IS_COLORBLIND, false);
+       	
+//       	PagerTitleStrip p = (PagerTitleStrip)findViewById(R.id.pager_title_strip);
+//       	p.set
        	
        	setAutoKeyboard(isAutoKb);
        	ViewPager v = (ViewPager)findViewById(R.id.pager_todo);
@@ -362,7 +296,7 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	public void addTodoItem(View view, int flag) {
     	EditText t   = (EditText) findViewById(R.id.edit_message);
     	
-    	Log.i(logTag, "New ToDo Item created");
+    	Log.i(TAG, "New ToDo Item created");
     	
 		ContentValues initValues = new ContentValues();
 		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, t.getText().toString());
