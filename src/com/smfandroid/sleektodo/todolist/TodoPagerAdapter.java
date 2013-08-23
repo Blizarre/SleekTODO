@@ -1,6 +1,8 @@
 package com.smfandroid.sleektodo.todolist;
 
 
+import com.smfandroid.sleektodo.CategoryManager;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,9 +14,11 @@ import android.util.Log;
 public class TodoPagerAdapter extends FragmentPagerAdapter {
     
 	public final String TAG = getClass().getSimpleName(); 
-
-	public TodoPagerAdapter(FragmentManager fm) {
+	protected CategoryManager mCatManager;
+	
+	public TodoPagerAdapter(FragmentManager fm, CategoryManager cm) {
         super(fm);
+        mCatManager = cm;
     }
 
     @Override
@@ -30,11 +34,11 @@ public class TodoPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return mCatManager.getNbCategory();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "" + (position + 1);
+        return mCatManager.getCategoryName(position);
     }
 }

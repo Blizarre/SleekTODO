@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
@@ -47,7 +49,9 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	protected final String PREF_IS_COLORBLIND="is_colorblind";
 	protected final String PREF_SIZE_FONT="font_size";
 	protected final String PREF_FIRST_START="first_start";
-		
+	
+   	protected CategoryManager mCatManager;
+
 	private final String TAG = getClass().getSimpleName();
 		
 	SparseArray<FragmentTodo> mListOfTodoFragments;
@@ -55,22 +59,20 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         
         mListOfTodoFragments = new SparseArray<FragmentTodo>();
-        
-        setContentView(R.layout.activity_main);
 
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
        	boolean isAutoKb    = sharedPref.getBoolean(PREF_AUTO_KEYB, true);
        	Singleton.size = sharedPref.getInt(PREF_SIZE_FONT, 1);
        	Singleton.isColorBlind = sharedPref.getBoolean(PREF_IS_COLORBLIND, false);
        	
-//       	PagerTitleStrip p = (PagerTitleStrip)findViewById(R.id.pager_title_strip);
-//       	p.set
+       	mCatManager = new CategoryManager(this);
        	
        	setAutoKeyboard(isAutoKb);
        	ViewPager v = (ViewPager)findViewById(R.id.pager_todo);
-       	v.setAdapter(new TodoPagerAdapter(getSupportFragmentManager()));
+       	v.setAdapter(new TodoPagerAdapter(getSupportFragmentManager(), mCatManager));
        	
         Button bn = (Button) findViewById(R.id.edit_button_normal);
         Button bi = (Button) findViewById(R.id.edit_button_important);
@@ -99,16 +101,10 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 			
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-				
-			}
+					int after) {}
 			
 			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void afterTextChanged(Editable s) {}
 		});
         
         if(sharedPref.getBoolean(PREF_FIRST_START, true)) {
@@ -126,6 +122,9 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	}
 
 
+	/**
+	 * Initial todo items shown to the users during first startup (tutorial) 
+	 */
 	public void populateTodoList() {
     	ContentValues initValues = new ContentValues();
 
@@ -177,6 +176,8 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 				return menu_showHelp(mi);
 			case R.id.action_import_export:
 				return menu_showImportExport(mi);
+			case R.id.action_cat_edit:
+				return menu_showCatEditor(mi);				
 			default:
 				return false;
 		}
@@ -195,8 +196,6 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
         return true;
 	}
 	
-
-	
 	public boolean menu_changeFontSize(MenuItem view) {
         DialogFragment dialog = new FontSizeDialog();
         dialog.show(getSupportFragmentManager(), "ChangeFontSizeDialogFragment");
@@ -209,14 +208,12 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 		return true;
 	}
 	
-	
 	public boolean menu_erase_text(MenuItem view) {
 		EditText t = (EditText)findViewById(R.id.edit_message);
 		t.setText("");
 		return true;
 	}
 
-	
 	public boolean menu_changeColorblind(MenuItem mi) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
 		Editor e = sharedPref.edit();
@@ -229,6 +226,26 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 		notifyCurrentListDataChanged();
 		return true;
 	}
+
+
+	public boolean menu_showCatEditor(MenuItem mi) {
+		Intent intent = new Intent(this, CategoriesEditorActivity.class);
+		startActivityForResult(intent, 1);
+		return true;
+	}	
+
+	@Override
+	protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+		
+		if(resultCode == Activity.RESULT_OK) {
+			Log.i(TAG, "result of activity is OK : categories have changed");
+			ViewPager v = (ViewPager)findViewById(R.id.pager_todo);
+			v.getAdapter().notifyDataSetChanged();
+		} else {
+			Log.i(TAG, "result of activity is NOK : categories have NOT changed");
+		}
+	}
+	
 	
 	public void notifyCurrentListDataChanged() {
 		int cat = getCurrentCategory();
@@ -247,12 +264,10 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
     
 	public boolean menu_showHelp(MenuItem mi) {
 		HelpDialog hd = new HelpDialog();
-		hd.show(getFragmentManager(), "NoticeDialogFragment");
+		hd.show(getSupportFragmentManager(), "NoticeDialogFragment");
 		return true;
 	}
 
-
-	
 	
 	public boolean menu_changeAutoKeyboard(MenuItem mi) {
 		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
@@ -278,8 +293,6 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	public void button_addTodoItemNormal(View view) {
 		addTodoItem(view, TodoItemContract.TODO_FLAG_NORMAL);
 	}
-	
-	
 	
 	private void setAutoKeyboard(boolean isAutoKb) {
 		if(isAutoKb)
@@ -316,14 +329,6 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
     	notifyCurrentListDataChanged();
     }
 
-    
-    
-
-
-    
-
-
-
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -339,8 +344,9 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
     }
 
 
-
+	/*********************/
     /** Dialog callback **/
+	/*********************/
     
 	@Override
 	public void onDialogSelect(int which) {

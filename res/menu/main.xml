@@ -22,6 +22,7 @@
     <item android:id="@+id/action_colorblind_mode" android:title="@string/action_colorblind_mode" android:checked="false" android:checkable="true"/> <!--  android:onClick="menu_changeColorblind" -->
     <item android:id="@+id/action_help" android:title="@string/action_show_help"  android:orderInCategory="100"/> <!--  android:onClick="menu_showHelp"  -->
     <item android:id="@+id/action_erase_text" android:showAsAction="always" android:title="@string/action_erase_text"/> <!--  android:onClick="menu_erase_text"  -->
-    <item android:id="@+id/action_import_export" android:title="@string/action_import_export"></item> 
+    <item android:id="@+id/action_import_export" android:title="@string/action_import_export"></item>
+    <item android:id="@+id/action_cat_edit" android:title="@string/action_cat_edit"></item> 
     
 </menu>

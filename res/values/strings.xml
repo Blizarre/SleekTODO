@@ -10,7 +10,7 @@
 	<string name="action_colorblind_mode">Use symbols</string>	
 	<string name="action_show_help">Show Help</string>
 	<string name="action_hide_keyboard">Hide Keyb.</string>
-		
+	<string name="action_cat_edit">Edit categories</string>		
 	
 <!--  Misc  -->
     <string name="app_name">Sleek Todo</string>
@@ -22,9 +22,9 @@
     <string name="button_return">Back</string>
     <string name="button_export">Export</string>
     <string name="button_import">Import</string>
-      
+    <string name="button_edit">Edit</string>
+    
 
-	
 
 
 	<!--  Buttons  -->	
@@ -36,6 +36,9 @@
 	<string name="button_add_important"><![CDATA[Add as<br/> <b>Important</b>]]></string>
 	<string name="button_add_critical"><![CDATA[Add as<br/> <b>Critical</b>]]></string>
 	
+	<string name="button_ok">Ok</string>
+    <string name="button_cancel">Cancel</string>
+    
 	
 	
 	<!--  Messages -->
