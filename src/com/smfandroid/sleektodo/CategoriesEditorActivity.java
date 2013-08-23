@@ -38,7 +38,7 @@ public class CategoriesEditorActivity extends FragmentActivity implements EditTe
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.categry_editor);
+        setContentView(R.layout.category_editor);
         
         mCatManager = new CategoryManager(this);
         mChangesHappened = false;
