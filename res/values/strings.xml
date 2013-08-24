@@ -11,18 +11,16 @@
 	<string name="action_show_help">Show Help</string>
 	<string name="action_hide_keyboard">Hide Keyb.</string>
 	<string name="action_cat_edit">Edit categories</string>		
+	<string name="action_import_export">Import/Export</string>
 	
 <!--  Misc  -->
     <string name="app_name">Sleek Todo</string>
-    <string name="edit_message">To Do ...</string>
+    <string name="edit_message">To Do …</string>
     <string name="pick_font_size">Font size:</string>
     <string name="pick_areyousure">Are you sure? ALL items will be removed</string>
     
     <string name="title_import_export">Select the backup file</string>
-    <string name="button_return">Back</string>
-    <string name="button_export">Export</string>
-    <string name="button_import">Import</string>
-    <string name="button_edit">Edit</string>
+
     
 
 
@@ -36,10 +34,16 @@
 	<string name="button_add_important"><![CDATA[Add as<br/> <b>Important</b>]]></string>
 	<string name="button_add_critical"><![CDATA[Add as<br/> <b>Critical</b>]]></string>
 	
-	<string name="button_ok">Ok</string>
+	<string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
     
-	
+    <string name="button_return">Back</string>
+    <string name="button_export">Export</string>
+    <string name="button_import">Import</string>
+    <string name="button_edit">Edit</string>
+    
+    <string name="button_add">Add</string>
+    <string name="button_remove">Remove</string>	
 	
 	<!--  Messages -->
 	<string name="msg_todo_added">New to-do Entry added</string>
@@ -52,6 +56,8 @@
 	<string name="msg_error_reading_from_file">Error reading from file</string>
 	<string name="msg_elements_read">%d items imported</string>
 	<string name="msg_elements_written">%d items exported</string>
+	<string name="msg_error_removing_cat">Cannot remove category</string>
+	
 	
 	<string name="msg_help"><![CDATA[
    
@@ -60,12 +66,13 @@
    <p>First things first, thank you for downloading this app! Some tips:</p>
 
 <p>
+&#8226; Now you can organize your todo items in categories ! change the current category by moving your finger left and right<br/>
 &#8226; The keyboard opens at startup. You can change this behavior in the menu<br/>
 &#8226; Add an item: input your text then select the priority<br/>
 &#8226; Remove an item: Long press on it, or use the menu.<br/>
 &#8226; Edit an item: long press (remove) it to copy the text on the input area, edit it and select the priority to add it as a new item<br/>
 &#8226; You can use symbols instead of the color code (see the menu)<br/>
-&#8226; You can change the font size from the menu</li> 
+&#8226; You can change the font size from the menu<br/>  
 </p>
 	    
    
@@ -83,8 +90,16 @@
 	<string name="todo_text_2">Remove this item (long press on it)</string>
 	<string name="todo_text_3">The text of any removed item is copied back in the input text area. Clear it using the button or edit it and add it again.</string>
 	<string name="todo_text_4">Check/uncheck this item</string>
-	<string name="todo_text_5">Open the menu, remove everything and start todo\'ing</string>
-	<string name="action_import_export">Import/Export</string>
+	<string name="todo_text_5">Change category by moving the screen left and right using gestures, and edit categories title in the menu</string>
+	<string name="todo_text_6">Open the menu, remove everything and start todo\'ing</string>
+	
+	<string name="todo_text_7">Don\'t forget to buy the milk !</string>
+
+	<string name="cat_name_tutorial">Tutorial</string>
+	<string name="cat_name_another">Groceries</string>
+	
+	
+	
 	
 </resources>
 

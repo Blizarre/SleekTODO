@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 import android.widget.EditText;
 
 public class EditTextDialog extends DialogFragment implements OnClickListener {
@@ -28,8 +29,9 @@ public class EditTextDialog extends DialogFragment implements OnClickListener {
 		
 		mEditText = new EditText(getActivity());
 		mEditText.setText(getArguments().getString(BUNDLE_KEY_DEFAULT_VAL));
-
+		mEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 		builder.setView(mEditText);		
+		mEditText.selectAll();
 		
 		return builder.create();
 	}

@@ -4,17 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <NumberPicker
-        android:id="@+id/cat_num_pick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/cat_bt_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="addCategory"
+                android:text="@string/button_add" />
+
+            <Button
+                android:id="@+id/cat_bt_remove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="removeCategory"
+                android:text="@string/button_remove" />
+                    
+        </LinearLayout>
 
     <ListView
         android:id="@+id/cat_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
     </ListView>
+
+    <Button
+        android:id="@+id/cat_bt_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:onClick="onOk"
+        android:text="@string/button_ok" />
 
 </LinearLayout>

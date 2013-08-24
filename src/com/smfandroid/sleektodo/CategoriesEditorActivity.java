@@ -34,7 +34,28 @@ public class CategoriesEditorActivity extends FragmentActivity implements EditTe
 		super.onBackPressed();
 	};
 	
+	public void onOk(View v) {
+		onBackPressed();
+	}
 	
+	public void addCategory(View v) {
+		int currentNbCat = mCatManager.getNbCategory();
+		mCatManager.setNbCategory(currentNbCat + 1);
+		setCategoriesChanged();
+		mChangesHappened = true;
+	}
+	
+	public void removeCategory(View v) {
+		int currentNbCat = mCatManager.getNbCategory();
+		if(currentNbCat <= 2) {
+			Toast.makeText(this, R.string.msg_error_removing_cat, Toast.LENGTH_SHORT).show();
+		} else {
+			mCatManager.setNbCategory(currentNbCat - 1);
+			setCategoriesChanged();
+		}
+		mChangesHappened = true;
+	}
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,25 +63,6 @@ public class CategoriesEditorActivity extends FragmentActivity implements EditTe
         
         mCatManager = new CategoryManager(this);
         mChangesHappened = false;
-
-        NumberPicker nPick = (NumberPicker)findViewById(R.id.cat_num_pick);
-
-        nPick.setMinValue(0);
-        nPick.setMaxValue(50);
-        nPick.setValue(mCatManager.getNbCategory());
-        
-        nPick.setOnValueChangedListener(new OnValueChangeListener() {
-			
-			@Override
-			public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-				if(newVal < mCatManager.getNbCategory()) {
-					// TODO: ask user if it is really the desired effect
-					Toast.makeText(CategoriesEditorActivity.this,  "Move items ?", Toast.LENGTH_SHORT).show();
-				}
-				mCatManager.setNbCategory(newVal);
-				setCategoriesChanged();
-			}
-		});
 
         ListView lView = (ListView)findViewById(R.id.cat_list);
         mArrayList = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mCatManager.getCategoryArray());

@@ -77,6 +77,15 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
        	mCatManager = new CategoryManager(this);
        	
        	setAutoKeyboard(isAutoKb);
+       	
+        if(sharedPref.getBoolean(PREF_FIRST_START, true)) {
+        	Editor e = sharedPref.edit();
+        	e.putBoolean(PREF_FIRST_START, false);
+        	e.commit();
+        	populateTodoList();
+        	menu_showHelp(null);
+        }
+       	
        	ViewPager v = (ViewPager)findViewById(R.id.pager_todo);
        	v.setAdapter(new TodoPagerAdapter(getSupportFragmentManager(), mCatManager));
        	
@@ -113,13 +122,7 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 			public void afterTextChanged(Editable s) {}
 		});
         
-        if(sharedPref.getBoolean(PREF_FIRST_START, true)) {
-        	Editor e = sharedPref.edit();
-        	e.putBoolean(PREF_FIRST_START, false);
-        	e.commit();
-        	populateTodoList();
-        	menu_showHelp(null);
-        }
+
     }
     
 	/**
@@ -137,8 +140,11 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 	 * Initial todo items shown to the users during first startup (tutorial) 
 	 */
 	public void populateTodoList() {
-    	ContentValues initValues = new ContentValues();
+		mCatManager.setNbCategory(2);
+		mCatManager.setCategoryName(0, getString(R.string.cat_name_tutorial));
+		mCatManager.setCategoryName(1, getString(R.string.cat_name_another));
 
+		ContentValues initValues = new ContentValues();
 		initValues.put(TodoItemContract.COLUMN_NAME_CHECKED, 0); // Always unchecked by default
 		initValues.put(TodoItemContract.COLUMN_NAME_CATEGORY, 0); // Category 0 by default 
      	initValues.put(TodoItemContract.COLUMN_NAME_FLAG, TodoItemContract.TODO_FLAG_CRITICAL);
@@ -152,8 +158,14 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_4)); 
 		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
 		initValues.put(TodoItemContract.COLUMN_NAME_FLAG, TodoItemContract.TODO_FLAG_NORMAL);
-		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_5)); 
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_5));
 		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);				
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_6)); 
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);
+
+		initValues.put(TodoItemContract.COLUMN_NAME_CATEGORY, 1); 
+		initValues.put(TodoItemContract.COLUMN_NAME_TEXT, getString(R.string.todo_text_7)); 
+		getContentResolver().insert(TodoItemContract.TODO_URI, initValues);
 	}
 
 	

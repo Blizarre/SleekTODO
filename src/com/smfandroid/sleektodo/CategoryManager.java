@@ -25,7 +25,7 @@ public class CategoryManager {
 	public String getCategoryName(int num) {
 		String numToString = Integer.toString(num);
 		SharedPreferences pref = mContext.getSharedPreferences(getClass().getCanonicalName(), Context.MODE_PRIVATE);
-		return pref.getString("category" + numToString, numToString);
+		return pref.getString("category" + numToString, "<" + numToString + ">");
 	}
 	
 	
