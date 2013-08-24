@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import android.app.AlertDialog.Builder;
 import android.app.Activity;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,7 +23,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
 import com.smfandroid.sleektodo.xml.Category;
 import com.smfandroid.sleektodo.xml.XmlTodoDeSerialize;
 import com.smfandroid.sleektodo.xml.XmlTodoDeSerialize.TodoReadException;

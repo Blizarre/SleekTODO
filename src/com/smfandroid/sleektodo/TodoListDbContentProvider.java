@@ -67,9 +67,6 @@ public class TodoListDbContentProvider extends ContentProvider {
 		        "UPDATE " + TodoItemContract.TABLE_TODO_NAME + SET_KEYWORD +
 		        TodoItemContract.COLUMN_NAME_CATEGORY + "=0;";
 
-	    public static final String SQL_DELETE_ENTRIES =
-	        "DROP TABLE IF EXISTS " + TodoItemContract.TABLE_TODO_NAME;
-	
 	    
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
