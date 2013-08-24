@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlSerializer;
 
 import android.util.Xml;
 
+import com.smfandroid.sleektodo.CategoryManager;
 import com.smfandroid.sleektodo.TodoItem;
 
 public class XmlTodoSerialize {
@@ -45,6 +46,25 @@ public class XmlTodoSerialize {
 	}
 	
 
+	public void exportCategoryList(CategoryManager cm) throws IOException, TodoAddException {
+		try {
+			mSerializer.startTag("", XmlContract.TAG_TODOCATEGORY);
+
+			for (int i = 0; i < cm.getNbCategory(); i++) {
+				mSerializer.startTag("", XmlContract.TAG_CATEGORY);
+					mSerializer.attribute("", XmlContract.ATTR_CAT_ID, Integer.toString(i));
+					mSerializer.text(cm.getCategoryName(i));
+				mSerializer.endTag("", XmlContract.TAG_CATEGORY);
+			}
+			
+			mSerializer.endTag("",  XmlContract.TAG_TODOCATEGORY);
+			
+		} catch (IllegalArgumentException e) {
+			throw new TodoAddException("internal error : " + e.getMessage());
+		} catch (IllegalStateException e) {
+			throw new TodoAddException("internal error : " + e.getMessage());
+		} 				
+	}
 	
 	/**
 	 * Export a new TodoItem to the file previously initialized by "openExportFile"

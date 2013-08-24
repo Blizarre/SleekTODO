@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.AlertDialog.Builder;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,20 +23,41 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
+import com.smfandroid.sleektodo.xml.Category;
 import com.smfandroid.sleektodo.xml.XmlTodoDeSerialize;
 import com.smfandroid.sleektodo.xml.XmlTodoDeSerialize.TodoReadException;
 import com.smfandroid.sleektodo.xml.XmlTodoSerialize;
 import com.smfandroid.sleektodo.xml.XmlTodoSerialize.TodoAddException;
 
 public class ImportExportDialog extends DialogFragment implements OnClickListener {
-/*
+
+	interface ImportExportDialogListener {
+		public void importDone();
+	}
+	
 	protected ImportExportDialogListener mListener;
-	*/
+	
+
 	private final String PREF_IMP_EXP_DIR = "io_default_dir";
-	private final String tag = "ImportExportDialog";
+	private final String TAG = getClass().getSimpleName();
 	
 	private EditText mEditText;
 	
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the ImportExportDialogListener so we can send events to the host
+            mListener = (ImportExportDialogListener) activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString()
+                    + " must implement ImportExportDialogListener");
+        }
+    }
+    
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -80,12 +102,11 @@ public class ImportExportDialog extends DialogFragment implements OnClickListene
 			break;
 		case DialogInterface.BUTTON_NEGATIVE :
 			importTodos(path);
+			mListener.importDone();
 			break;
 		default:
 			return;
 		}
-		
-		
 	}
 
 	private void exportTodos(String path) {
@@ -108,24 +129,24 @@ public class ImportExportDialog extends DialogFragment implements OnClickListene
 					ser.exportTodoItem(item);
 					c.moveToNext();
 				}
+				ser.exportCategoryList(new CategoryManager(getActivity()));
+				Toast.makeText(getActivity(), String.format(getString(R.string.msg_elements_written), c.getCount()) , Toast.LENGTH_SHORT).show();
 			} else {
 				Toast.makeText(getActivity(), getText(R.string.msg_export_empty), Toast.LENGTH_SHORT).show();
 			}
-			Toast.makeText(getActivity(), String.format(getString(R.string.msg_elements_written), c.getCount()) , Toast.LENGTH_SHORT).show();
 
-			
 			ser.close();
 		} catch (FileNotFoundException e) {
 			Toast.makeText(getActivity(), R.string.msg_cannot_write_to_file, Toast.LENGTH_SHORT).show();
-			Log.e(tag, e.getMessage());
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
 			Toast.makeText(getActivity(), R.string.msg_error_writing_to_file, Toast.LENGTH_SHORT).show();
-			Log.e(tag, e.getMessage());
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 		} catch (TodoAddException e) {
 			Toast.makeText(getActivity(), R.string.msg_error_writing_to_file, Toast.LENGTH_SHORT).show();
-			Log.e(tag, e.getMessage());
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 		} finally {		
 			c.close();	
@@ -133,8 +154,9 @@ public class ImportExportDialog extends DialogFragment implements OnClickListene
 	}
 
 	private void importTodos(String path) {
+		CategoryManager cm = new CategoryManager(getActivity());
 		try {
-			List<TodoItem> lTodoItems = XmlTodoDeSerialize.parse(path);
+			List<TodoItem> lTodoItems = XmlTodoDeSerialize.parseTodoItems(path);
 	    	ContentValues initValues = new ContentValues();
 
 			for(TodoItem t:lTodoItems) {
@@ -146,15 +168,23 @@ public class ImportExportDialog extends DialogFragment implements OnClickListene
 				initValues.put(TodoItemContract.COLUMN_NAME_DATE , t.mDate);
 				getActivity().getContentResolver().insert(TodoItemContract.TODO_URI, initValues);		
 			}
+			
+			List<Category> lCategories = XmlTodoDeSerialize.parseCategories(path);
+			cm.setNbCategory(lCategories.size());
+			for(Category c:lCategories) {
+				cm.setCategoryName(c.id, c.mText);
+			}
+			
+			
 			Toast.makeText(getActivity(), String.format(getString(R.string.msg_elements_read), lTodoItems.size()) , Toast.LENGTH_SHORT).show();
 		} catch (IOException e) {
 			Toast.makeText(getActivity(), R.string.msg_error_reading_from_file, Toast.LENGTH_SHORT).show();
-			Log.e(tag, e.getMessage());
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 			e.printStackTrace();
 		} catch (TodoReadException e) {
 			Toast.makeText(getActivity(), R.string.msg_error_reading_from_file, Toast.LENGTH_SHORT).show();
-			Log.e(tag, e.getMessage());
+			Log.e(TAG, e.getMessage());
 			e.printStackTrace();
 		}
 		

@@ -32,12 +32,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.smfandroid.sleektodo.FontSizeDialog.NoticeDialogListener;
+import com.smfandroid.sleektodo.ImportExportDialog.ImportExportDialogListener;
 import com.smfandroid.sleektodo.RemoveAllTodoConfirmDialog.RemoveAllTodosDialogListener;
 import com.smfandroid.sleektodo.todolist.FragmentTodo;
 import com.smfandroid.sleektodo.todolist.TodoPagerAdapter;
 
 
-public class MainActivity extends FragmentActivity implements NoticeDialogListener, RemoveAllTodosDialogListener {
+public class MainActivity extends FragmentActivity implements NoticeDialogListener, RemoveAllTodosDialogListener, ImportExportDialogListener {
 
 	public static class Singleton {
 		private Singleton() {};
@@ -54,6 +55,11 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 
 	private final String TAG = getClass().getSimpleName();
 		
+	/**
+	 * List of fragments used to show the categories. As soon as they are created by
+	 * the viewPager adapter, they register themselves to their MainActivity. That
+	 * way the activity can notify them when data has changed. 
+	 */
 	SparseArray<FragmentTodo> mListOfTodoFragments;
 		
 	@Override
@@ -116,7 +122,12 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
         }
     }
     
-
+	/**
+	 * This method is called by the fragments created by the viewPager adapter to
+	 * register themselves to the activity.
+	 * @param category : the category ID of the fragment
+	 * @param fragmentTodo : the fragment registering
+	 */
 	public void addTodoFragment(int category, FragmentTodo fragmentTodo) {
 		mListOfTodoFragments.put(category, fragmentTodo);
 	}
@@ -184,6 +195,25 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 		
 	}
 	
+	public boolean menu_showHelp(MenuItem mi) {
+		HelpDialog hd = new HelpDialog();
+		hd.show(getSupportFragmentManager(), "NoticeDialogFragment");
+		return true;
+	}
+
+	
+	public boolean menu_changeAutoKeyboard(MenuItem mi) {
+		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+		Editor e = sharedPref.edit();
+		boolean newVal = ! mi.isChecked();
+		
+		mi.setChecked(newVal);
+		e.putBoolean(PREF_AUTO_KEYB, newVal);
+		setAutoKeyboard(newVal);
+		e.commit();
+		return true;
+	}
+		
 	public boolean menu_eraseCheckedTodos(MenuItem item) {
     	int ret = getContentResolver().delete(TodoItemContract.TODO_URI, TodoItemContract.COLUMN_NAME_CHECKED + "=1", null);
 		String msg = String.format(getString(R.string.msg_elements_removed), ret);
@@ -257,30 +287,16 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
 		t.setText(s);
 	}
     
+	/**
+	 * Get the category currently displayer on screen by the ViewPager
+	 * @return the category ID
+	 */
     private int getCurrentCategory() {
 		ViewPager vPag = (ViewPager)findViewById(R.id.pager_todo);
 		return vPag.getCurrentItem();
 	}
     
-	public boolean menu_showHelp(MenuItem mi) {
-		HelpDialog hd = new HelpDialog();
-		hd.show(getSupportFragmentManager(), "NoticeDialogFragment");
-		return true;
-	}
 
-	
-	public boolean menu_changeAutoKeyboard(MenuItem mi) {
-		SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-		Editor e = sharedPref.edit();
-		boolean newVal = ! mi.isChecked();
-		
-		mi.setChecked(newVal);
-		e.putBoolean(PREF_AUTO_KEYB, newVal);
-		setAutoKeyboard(newVal);
-		e.commit();
-		return true;
-	}
-	
 	
 	public void button_addTodoItemCritical(View view) {
 		addTodoItem(view, TodoItemContract.TODO_FLAG_CRITICAL);
@@ -379,6 +395,14 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
     	int ret = getContentResolver().delete(TodoItemContract.TODO_URI, null, null);
 		String msg = String.format(getString(R.string.msg_elements_removed), ret);
     	Toast.makeText(this,  msg, Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * Called whenever new data has been imported into the data base.
+	 */
+	@Override
+	public void importDone() {
+		onActivityResult(0,  Activity.RESULT_OK, null);		
 	}
     
 }

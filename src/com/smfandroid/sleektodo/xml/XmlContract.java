@@ -9,4 +9,6 @@ public class XmlContract {
 	public static final String TAG_DATE = "date";
 	public static final String TAG_LONGTEXT = "longtext";
 	public static final String TAG_ROOT_TODOITEM = "todoItems";
+	public static final String TAG_TODOCATEGORY = "todoCategory";
+	public static final String ATTR_CAT_ID = "id";
 }

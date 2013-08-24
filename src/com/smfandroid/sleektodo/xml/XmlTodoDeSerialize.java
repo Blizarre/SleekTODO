@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -41,7 +42,7 @@ public class XmlTodoDeSerialize {
 			return "";
 	}
 	
-    public static List<TodoItem> parse(String fileName) throws IOException, TodoReadException {
+    public static List<TodoItem> parseTodoItems(String fileName) throws IOException, TodoReadException {
     	FileInputStream fileInputS = new FileInputStream(fileName);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -87,8 +88,54 @@ public class XmlTodoDeSerialize {
 		} finally {
 	        fileInputS.close();
 		}
-		
 
         return todoItems;
     }
+
+    public static List<Category> parseCategories(String fileName) throws IOException, TodoReadException {
+    	FileInputStream fileInputS = new FileInputStream(fileName);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+
+        List<Category> todoCat = new ArrayList<Category>();
+
+        try {
+            DocumentBuilder builder;
+    		builder = factory.newDocumentBuilder();
+    		Document dom = builder.parse(fileInputS);	
+	        Element root = dom.getDocumentElement();
+	        NodeList items = root.getElementsByTagName(XmlContract.TAG_TODOCATEGORY);
+	        NamedNodeMap attr;
+	        
+	        for (int i=0;i<items.getLength();i++){
+	            
+	            Node item = items.item(i);
+	            NodeList properties = item.getChildNodes();
+	            
+	            for (int j=0;j<properties.getLength();j++){
+	            	Category ca = new Category();
+	                Node property = properties.item(j);
+	                String name = property.getNodeName();
+	                if (name.equalsIgnoreCase(XmlContract.TAG_CATEGORY)){
+	                    ca.mText = (getValueIfItExists(property.getFirstChild()));
+	                    attr = property.getAttributes();
+	                    ca.id = Integer.decode(attr.getNamedItem(XmlContract.ATTR_CAT_ID).getNodeValue());
+	                }
+	                todoCat.add(ca);
+	            }
+	            
+	        }
+        
+		} catch (SAXException e) {
+			throw new TodoReadException("internal error : " + e.getMessage());
+		} catch (ParserConfigurationException e) {
+			throw new TodoReadException("internal error : " + e.getMessage());
+		} finally {
+	        fileInputS.close();
+		}
+		
+
+        return todoCat;
+    }
+    
 }
