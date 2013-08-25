@@ -105,8 +105,8 @@ public final class R {
         public static final int button_ok=0x7f070015;
         public static final int button_remove=0x7f07001c;
         public static final int button_return=0x7f070017;
-        public static final int cat_name_another=0x7f070033;
-        public static final int cat_name_tutorial=0x7f070032;
+        public static final int cat_name_another=0x7f070034;
+        public static final int cat_name_tutorial=0x7f070033;
         public static final int edit_button_cancel=0x7f070010;
         /**   Buttons  
   Buttons  
@@ -122,26 +122,27 @@ public final class R {
         public static final int msg_error_writing_to_file=0x7f070023;
         public static final int msg_export_empty=0x7f070020;
         public static final int msg_font_changed=0x7f07001e;
-        public static final int msg_help=0x7f070028;
+        public static final int msg_help=0x7f070029;
         public static final int msg_import_empty=0x7f070021;
+        public static final int msg_moveItems=0x7f070028;
         /**   Debug  
          */
-        public static final int msg_not_implemented=0x7f070029;
+        public static final int msg_not_implemented=0x7f07002a;
         /**   Messages 
   Messages 
          */
         public static final int msg_todo_added=0x7f07001d;
-        public static final int msg_todo_added_nok=0x7f07002a;
+        public static final int msg_todo_added_nok=0x7f07002b;
         public static final int pick_areyousure=0x7f07000d;
         public static final int pick_font_size=0x7f07000c;
         public static final int title_import_export=0x7f07000e;
-        public static final int todo_text_1=0x7f07002b;
-        public static final int todo_text_2=0x7f07002c;
-        public static final int todo_text_3=0x7f07002d;
-        public static final int todo_text_4=0x7f07002e;
-        public static final int todo_text_5=0x7f07002f;
-        public static final int todo_text_6=0x7f070030;
-        public static final int todo_text_7=0x7f070031;
+        public static final int todo_text_1=0x7f07002c;
+        public static final int todo_text_2=0x7f07002d;
+        public static final int todo_text_3=0x7f07002e;
+        public static final int todo_text_4=0x7f07002f;
+        public static final int todo_text_5=0x7f070030;
+        public static final int todo_text_6=0x7f070031;
+        public static final int todo_text_7=0x7f070032;
     }
     public static final class style {
         /** 
