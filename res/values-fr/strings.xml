@@ -52,7 +52,8 @@
 	<string name="msg_elements_read">%d éléments importés</string>
 	<string name="msg_elements_written">%d éléments exportés</string>
 	<string name="msg_error_removing_cat">Ne peut pas retirer la dernière catégorie</string>
-			
+	<string name="msg_moveItems">La suppression de cette catégorie va entraîner le déplacement de %1$d éléments dans la catégorie précédente</string>
+	
 	<string name="msg_help"><![CDATA[
 	    
 	    <p><b>Aide</b></p>
@@ -60,7 +61,7 @@
 	    <p>Tout d\'abord, merci d\'avoir téléchargé cette application ! Voici quelques astuces :</p>
 
 		<p>
-		&#8226; Vous pouvez maintenant placer vos tâches dans des catégories. Déplacez l'écran de gauche à droite avec votre doigt pour changer de catégorie<br/>
+		&#8226; Vous pouvez maintenant placer vos tâches dans des catégories. Déplacez l\'écran de gauche à droite avec votre doigt pour changer de catégorie<br/>
 		&#8226; Le clavier apparaît au démarrage. Vous pouvez changer cela dans le menu<br/>
 		&#8226; Ajouter une tâche : entrer le texte, puis sélectionner la priorité<br/>
 		&#8226; Supprimer une tâche : Faite un appui long dessus<br/>
@@ -80,7 +81,7 @@
 	<string name="todo_text_2">Supprimez cet élément (appui long)</string>
 	<string name="todo_text_3">Le texte de tout élément supprimé est recopié dans la zone d\'édition. Effacez-le à l\'aide du bouton ou éditez-le pour le ré-ajouter.</string>
 	<string name="todo_text_4">Cochez/Décochez cet élément</string>
-	<string name="todo_text_5">Changez de catégorie en déplaçant l'écran à gauche ou à droite avec votre doigt, et changez les titres des catégories depuis le menu</string>
+	<string name="todo_text_5">Changez de catégorie en déplaçant l\'écran à gauche ou à droite avec votre doigt, et changez les titres des catégories depuis le menu</string>
 	
 	<string name="todo_text_6">Ouvrez le menu, effacez tout et commencez à écrire ce que vous ne devez pas oublier !</string>
 	

@@ -55,6 +55,7 @@
 	<string name="msg_elements_read">%d items imported</string>
 	<string name="msg_elements_written">%d items exported</string>
 	<string name="msg_error_removing_cat">Cannot remove category</string>
+	<string name="msg_moveItems">To remove this category, %1$d items will have to be moved to the previous category</string>
 	
 	
 	<string name="msg_help"><![CDATA[

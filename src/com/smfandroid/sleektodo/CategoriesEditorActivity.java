@@ -1,5 +1,8 @@
 package com.smfandroid.sleektodo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -7,8 +10,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.Toast;
 
 import com.smfandroid.sleektodo.EditTextDialog.EditTextDialogInterface;
@@ -45,15 +46,46 @@ public class CategoriesEditorActivity extends FragmentActivity implements EditTe
 		mChangesHappened = true;
 	}
 	
+	public void forceRemoveCategory(int newNbCategory) {
+		mCatManager.setNbCategory(newNbCategory);
+		mChangesHappened = true;
+		setCategoriesChanged();
+	}
+	
+	public void showAlertRelocateDialog(int newNbCategory, int nbEltsToRelocate) {
+		final int fin_newNbCategory = newNbCategory;
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage(getString(R.string.msg_moveItems, nbEltsToRelocate));
+		alert.setNegativeButton(R.string.button_cancel, null);
+		alert.setPositiveButton(R.string.button_ok, new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				forceRemoveCategory(fin_newNbCategory);
+				
+			}
+		}).create().show();
+	}
+	
+	/**
+	 * Remove the last category. forceRemoveCategory will do the actual removal.
+	 * @param v
+	 */
 	public void removeCategory(View v) {
+		int nbEltsToRelocate;
 		int currentNbCat = mCatManager.getNbCategory();
-		if(currentNbCat <= 2) {
+		final int newNbCategory = currentNbCat - 1;
+		
+		if(newNbCategory < 1) {
 			Toast.makeText(this, R.string.msg_error_removing_cat, Toast.LENGTH_SHORT).show();
 		} else {
-			mCatManager.setNbCategory(currentNbCat - 1);
-			setCategoriesChanged();
+			nbEltsToRelocate = mCatManager.getNbElementsToRelocate(newNbCategory);
+			if(nbEltsToRelocate > 0) {
+				showAlertRelocateDialog(newNbCategory, nbEltsToRelocate);
+			} else
+				forceRemoveCategory(newNbCategory);
 		}
-		mChangesHappened = true;
+		
 	}
 
 	@Override

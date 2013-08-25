@@ -17,7 +17,6 @@ public class TodoListDbContentProvider extends ContentProvider {
 
 	protected final String TAG = getClass().getSimpleName();
 	
-	private static final String logTag = "TodoListDbContentProvider" ;
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
@@ -26,6 +25,7 @@ public class TodoListDbContentProvider extends ContentProvider {
     
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
+		protected final String TAG = getClass().getSimpleName();
 
 	    // If you change the database schema, you must increment the database version.
 	    public static final int DATABASE_VERSION = 5;
@@ -56,11 +56,11 @@ public class TodoListDbContentProvider extends ContentProvider {
 		        TodoItemContract.COLUMN_NAME_CATEGORY + TEXT_TYPE;
 
 	    // Create the "category" table with the names (not used right now)
-	    public static final String SQL_UPGRADE_CREATE_CATEGORY_TABLE =
+	    /*public static final String SQL_UPGRADE_CREATE_CATEGORY_TABLE =
 		        "CREATE TABLE " + TodoItemContract.TABLE_CATEGORY_NAME + " (" +
 		        TodoItemContract._ID + " INTEGER PRIMARY KEY" + COMMA_SEP +
 		        TodoItemContract.COLUMN_NAME_TEXT + TEXT_TYPE + COMMA_SEP +
-		        " );";
+		        " );";*/
 
 	    // Set default values for the category data
 	    public static final String SQL_UPGRADE_UPDATE_VALUES =
@@ -74,7 +74,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			Log.d(logTag, SQL_CREATE_ENTRIES);
+			Log.d(TAG, "onCreate : " + SQL_CREATE_ENTRIES);
 			db.execSQL(SQL_CREATE_ENTRIES);
 		}
 
@@ -82,18 +82,20 @@ public class TodoListDbContentProvider extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+			Log.i(TAG, "Upgrading from version " + oldVersion + " to " + newVersion);
 			if(oldVersion < 5) { 
-				Log.d(logTag, SQL_UPGRADE_CREATE_CATEGORY_COLUMN);
+				Log.d(TAG, SQL_UPGRADE_CREATE_CATEGORY_COLUMN);
 				db.execSQL(SQL_UPGRADE_CREATE_CATEGORY_COLUMN);
-				Log.d(logTag, SQL_UPGRADE_CREATE_CATEGORY_TABLE);
-				db.execSQL(SQL_UPGRADE_CREATE_CATEGORY_TABLE);
+				/*Log.d(TAG, SQL_UPGRADE_CREATE_CATEGORY_TABLE);
+				db.execSQL(SQL_UPGRADE_CREATE_CATEGORY_TABLE);*/
+				Log.d(TAG, SQL_UPGRADE_UPDATE_VALUES);
 				db.execSQL(SQL_UPGRADE_UPDATE_VALUES);
 			}
-			onCreate(db);
+			//onCreate(db);
 		}
 /*		
 		@Override
-		public void onDOwngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			db.execSQL("DROP TABLE IF EXISTS " + SQLITE_TABLE);
 			onCreate(db);			
 		}
@@ -170,7 +172,7 @@ public class TodoListDbContentProvider extends ContentProvider {
 	
 	@Override
 	public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-		Log.i(logTag, "Demande de changement");
+		Log.i(TAG, "Demande de changement");
 		int ret = mDb.update(TodoItemContract.TABLE_TODO_NAME, values, selection, selectionArgs);
 		getContext().getContentResolver().notifyChange(TodoItemContract.TODO_URI, null);
 		return ret;
