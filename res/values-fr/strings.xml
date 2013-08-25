@@ -10,7 +10,8 @@
 	<string name="action_colorblind_mode">Utiliser des symboles</string>	
 	<string name="action_show_help">Afficher l\'aide</string>
 	<string name="action_hide_keyboard">Cacher</string>
-		
+	<string name="action_cat_edit">Edit categories</string>		
+	<string name="action_import_export">Import/Export</string>		
 	
 <!--  Misc  -->
     <string name="app_name">Sleek Todo</string>
@@ -19,31 +20,8 @@
     <string name="pick_areyousure">Êtes-vous certain ? TOUTES les tâches seront supprimées</string>
     
     <string name="title_import_export">Sélectionnez le fichier de sauvegarde</string>
-    <string name="button_return">Retour</string>
-    <string name="button_export">Export</string>
-    <string name="button_import">Import</string>
-	
-	<string name="msg_help"><![CDATA[
-	    
-	    <p><b>Aide</b></p>
-	    
-	    <p>Tout d\'abord, merci d\'avoir téléchargé cette application ! Voici quelques astuces :</p>
 
-		<p>
-		&#8226; Le clavier apparaît au démarrage. Vous pouvez changer cela dans le menu<br/>
-		&#8226; Ajouter une tâche : entrer le texte, puis sélectionner la priorité<br/>
-		&#8226; Supprimer une tâche : Faite un appui long dessus<br/>
-		&#8226; Éditer une tâche : réaliser un appui long dessus. Le texte sera copié dans la zone d\'édition. Le modifier puis sélectionner sa priorité<br/>
-		&#8226; Vous pouvez utiliser des symboles à la place du code couleur (voir le menu)<br/>
-		&#8226; Vous pouvez changer la taille de la police (voir le menu)</li> 
-		</p>
-			    
-	    
-	    <p><b>Icône</b></p>
-	    
-	    <p>L\'icône de <i>Sleek TODO</i> a été réalisée par <a href="http://www.doublejdesign.co.uk">http://www.doublejdesign.co.uk</a></p> 
-	    
-	    ]]></string>
+
 
 	<!--  Buttons  -->	
 	<string name="edit_button_remove_all">Tout supprimer</string>
@@ -54,7 +32,13 @@
 	<string name="button_add_important"><![CDATA[Tâche<br/> <b>Importante</b>]]></string>
 	<string name="button_add_critical"><![CDATA[Tâche<br/> <b>Critique</b>]]></string>
 	
-	
+    <string name="button_return">Retour</string>
+    <string name="button_export">Exporter</string>
+    <string name="button_import">Importer</string>
+    <string name="button_edit">Éditer</string>
+    		
+    <string name="button_add">Ajouter</string>
+    <string name="button_remove">Retirer</string>	    
 	
 	<!--  Messages -->
 	<string name="msg_todo_added">Nouvelle tâche ajoutée</string>
@@ -67,13 +51,43 @@
 	<string name="msg_error_reading_from_file">Erreur de lecture du fichier</string>
 	<string name="msg_elements_read">%d éléments importés</string>
 	<string name="msg_elements_written">%d éléments exportés</string>
-		
-	
+	<string name="msg_error_removing_cat">Ne peut pas retirer la dernière catégorie</string>
+			
+	<string name="msg_help"><![CDATA[
+	    
+	    <p><b>Aide</b></p>
+	    
+	    <p>Tout d\'abord, merci d\'avoir téléchargé cette application ! Voici quelques astuces :</p>
+
+		<p>
+		&#8226; Vous pouvez maintenant placer vos tâches dans des catégories. Déplacez l'écran de gauche à droite avec votre doigt pour changer de catégorie<br/>
+		&#8226; Le clavier apparaît au démarrage. Vous pouvez changer cela dans le menu<br/>
+		&#8226; Ajouter une tâche : entrer le texte, puis sélectionner la priorité<br/>
+		&#8226; Supprimer une tâche : Faite un appui long dessus<br/>
+		&#8226; Éditer une tâche : réaliser un appui long dessus. Le texte sera copié dans la zone d\'édition. Le modifier puis sélectionner sa priorité<br/>
+		&#8226; Vous pouvez utiliser des symboles à la place du code couleur (voir le menu)<br/>
+		&#8226; Vous pouvez changer la taille de la police (voir le menu)</br> 
+		</p>
+			    
+	    
+	    <p><b>Icône</b></p>
+	    
+	    <p>L\'icône de <i>Sleek TODO</i> a été réalisée par <a href="http://www.doublejdesign.co.uk">http://www.doublejdesign.co.uk</a></p> 
+	    
+	    ]]></string>
+	    	
 	<string name="todo_text_1">Ajout d\'un élément : tapez du texte et sélectionnez la priorité</string>
 	<string name="todo_text_2">Supprimez cet élément (appui long)</string>
 	<string name="todo_text_3">Le texte de tout élément supprimé est recopié dans la zone d\'édition. Effacez-le à l\'aide du bouton ou éditez-le pour le ré-ajouter.</string>
 	<string name="todo_text_4">Cochez/Décochez cet élément</string>
-	<string name="todo_text_5">Ouvrez le menu, supprimez tout et intégrez vos tâches !</string>
+	<string name="todo_text_5">Changez de catégorie en déplaçant l'écran à gauche ou à droite avec votre doigt, et changez les titres des catégories depuis le menu</string>
 	
+	<string name="todo_text_6">Ouvrez le menu, effacez tout et commencez à écrire ce que vous ne devez pas oublier !</string>
+	
+	<string name="todo_text_7">Ne pas oublier d\'acheter du pain</string>
+
+	<string name="cat_name_tutorial">Tutoriel</string>
+	<string name="cat_name_another">Courses</string>
+		
 </resources>
 
