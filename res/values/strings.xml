@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--  Menu  -->    
+<!--  Menu (10) -->    
     <string name="action_erase_checked">Erase all checked items</string>
     <string name="action_erase_all">Erase all items</string>
     <string name="action_auto_keyboard">Keyboard on startup</string>
@@ -13,17 +13,16 @@
 	<string name="action_cat_edit">Edit categories</string>		
 	<string name="action_import_export">Import/Export</string>
 	
-<!--  Misc  -->
+<!--  Misc (5) -->
     <string name="app_name">Sleek Todo</string>
     <string name="edit_message">To Do …</string>
     <string name="pick_font_size">Font size:</string>
     <string name="pick_areyousure">Are you sure? ALL items will be removed</string>
-    
     <string name="title_import_export">Select the backup file</string>
 
 
 
-	<!--  Buttons  -->	
+<!--  Buttons (14) -->	
 	<string name="edit_button_remove_all">Remove All</string>
 	<string name="edit_button_cancel">Cancel</string>
 	<string name="button_continue">Continue</string>
@@ -42,8 +41,9 @@
     
     <string name="button_add">Add</string>
     <string name="button_remove">Remove</string>	
-	
-	<!--  Messages -->
+
+    	
+<!--  Messages (13) -->
 	<string name="msg_todo_added">New to-do Entry added</string>
 	<string name="msg_font_changed">Font size Changed</string>
 	<string name="msg_elements_removed">%d element(s) removed</string>
@@ -81,10 +81,11 @@
    
    ]]></string>
 	
-	<!--  Debug  -->
+<!--  Debug (2) -->
 	<string name="msg_not_implemented">Not implemented</string>
 	<string name="msg_todo_added_nok">Error adding new to-do Entry</string>
 	
+<!--  Tutorial (9) -->	
 	<string name="todo_text_1">Add an item: just start typing and select the priority</string>
 	<string name="todo_text_2">Remove this item (long press on it)</string>
 	<string name="todo_text_3">The text of any removed item is copied back in the input text area. Clear it using the button or edit it and add it again.</string>

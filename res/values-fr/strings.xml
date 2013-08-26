@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--  Menu  -->    
+<!--  Menu (10) -->    
     <string name="action_erase_checked">Effacer tâche(s) cochée(s)</string>
     <string name="action_erase_all">Effacer tout</string>
     <string name="action_auto_keyboard">Afficher clavier auto</string>
@@ -10,20 +10,19 @@
 	<string name="action_colorblind_mode">Utiliser des symboles</string>	
 	<string name="action_show_help">Afficher l\'aide</string>
 	<string name="action_hide_keyboard">Cacher</string>
-	<string name="action_cat_edit">Edit categories</string>		
+	<string name="action_cat_edit">Éditer catégories</string>		
 	<string name="action_import_export">Import/Export</string>		
 	
-<!--  Misc  -->
+<!--  Misc (5) -->
     <string name="app_name">Sleek Todo</string>
     <string name="edit_message">Que faire ?</string>
     <string name="pick_font_size">Taille de police :</string>
     <string name="pick_areyousure">Êtes-vous certain ? TOUTES les tâches seront supprimées</string>
-    
     <string name="title_import_export">Sélectionnez le fichier de sauvegarde</string>
 
 
 
-	<!--  Buttons  -->	
+<!--  Buttons (14)  -->	
 	<string name="edit_button_remove_all">Tout supprimer</string>
 	<string name="edit_button_cancel">Annuler</string>
 	<string name="button_continue">Continuer</string>
@@ -32,6 +31,9 @@
 	<string name="button_add_important"><![CDATA[Tâche<br/> <b>Importante</b>]]></string>
 	<string name="button_add_critical"><![CDATA[Tâche<br/> <b>Critique</b>]]></string>
 	
+	<string name="button_ok">OK</string>
+    <string name="button_cancel">Annuler</string>
+    	
     <string name="button_return">Retour</string>
     <string name="button_export">Exporter</string>
     <string name="button_import">Importer</string>
@@ -39,8 +41,9 @@
     		
     <string name="button_add">Ajouter</string>
     <string name="button_remove">Retirer</string>	    
-	
-	<!--  Messages -->
+
+    	
+<!--  Messages (13) -->
 	<string name="msg_todo_added">Nouvelle tâche ajoutée</string>
 	<string name="msg_font_changed">Taille de police changée</string>
 	<string name="msg_elements_removed">%d élément(s) supprimé(s)</string>
@@ -76,7 +79,9 @@
 	    <p>L\'icône de <i>Sleek TODO</i> a été réalisée par <a href="http://www.doublejdesign.co.uk">http://www.doublejdesign.co.uk</a></p> 
 	    
 	    ]]></string>
-	    	
+
+	
+<!-- Tutorial (9) -->
 	<string name="todo_text_1">Ajout d\'un élément : tapez du texte et sélectionnez la priorité</string>
 	<string name="todo_text_2">Supprimez cet élément (appui long)</string>
 	<string name="todo_text_3">Le texte de tout élément supprimé est recopié dans la zone d\'édition. Effacez-le à l\'aide du bouton ou éditez-le pour le ré-ajouter.</string>
