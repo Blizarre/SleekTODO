@@ -22,9 +22,8 @@
 
 
 
-<!--  Buttons (14)  -->	
+<!--  Buttons (13)  -->	
 	<string name="edit_button_remove_all">Tout supprimer</string>
-	<string name="edit_button_cancel">Annuler</string>
 	<string name="button_continue">Continuer</string>
 	
 	<string name="button_add_normal"><![CDATA[Tâche<br/> <b>Normale</b>]]></string>

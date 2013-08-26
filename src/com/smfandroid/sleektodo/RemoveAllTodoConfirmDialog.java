@@ -41,7 +41,7 @@ public class RemoveAllTodoConfirmDialog extends DialogFragment implements Dialog
 	    Builder builder = new Builder(getActivity());
 	    builder.setMessage(R.string.pick_areyousure);
 	    builder.setPositiveButton(R.string.edit_button_remove_all, this);
-	    builder.setNegativeButton(R.string.edit_button_cancel, this);
+	    builder.setNegativeButton(R.string.button_cancel, this);
 	    return builder.create();
 	}
 }
