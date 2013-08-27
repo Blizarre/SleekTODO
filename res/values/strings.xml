@@ -13,13 +13,14 @@
 	<string name="action_cat_edit">Edit categories</string>		
 	<string name="action_import_export">Import/Export</string>
 	
-<!--  Misc (5) -->
+<!--  Misc (6) -->
     <string name="app_name">Sleek Todo</string>
     <string name="edit_message">To Do …</string>
     <string name="pick_font_size">Font size:</string>
     <string name="pick_areyousure">Are you sure? ALL items will be removed</string>
     <string name="title_import_export">Select the backup file</string>
-
+    <string name="default_cat_name">Category %1$d</string>
+    
 
 
 <!--  Buttons (13) -->	

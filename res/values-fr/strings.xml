@@ -13,13 +13,14 @@
 	<string name="action_cat_edit">Éditer catégories</string>		
 	<string name="action_import_export">Import/Export</string>		
 	
-<!--  Misc (5) -->
+<!--  Misc (6) -->
     <string name="app_name">Sleek Todo</string>
     <string name="edit_message">Que faire ?</string>
     <string name="pick_font_size">Taille de police :</string>
     <string name="pick_areyousure">Êtes-vous certain ? TOUTES les tâches seront supprimées</string>
     <string name="title_import_export">Sélectionnez le fichier de sauvegarde</string>
-
+    <string name="default_cat_name">Catégorie %1$d</string>
+    
 
 
 <!--  Buttons (13)  -->	
