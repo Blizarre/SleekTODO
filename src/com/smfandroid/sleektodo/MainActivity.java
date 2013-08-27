@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity implements NoticeDialogListen
         bc.setText(Html.fromHtml(getString(R.string.button_add_critical)));
         
         // No need to show the app title on the action bar. Take too much space on small devices.
-        getActionBar().setDisplayShowTitleEnabled(false);
+        // getActionBar().setDisplayShowTitleEnabled(false);
         
         TextView t = (TextView) findViewById(R.id.edit_message);
 
