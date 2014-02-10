@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--  Menu (10) -->    
+    <string name="action_erase_checked">Markierte Einträge löschen</string>
+    <string name="action_erase_all">Alle Einträge löschen</string>
+    <string name="action_auto_keyboard">Tastatur bei Start</string>
+	<string name="action_change_font">Schriftgröße ändern</string>
+	<string name="action_erase_text">Text löschen</string>
+	<string name="action_colorblind_mode">Symbole verwenden</string>	
+	<string name="action_show_help">Hilfe anzeigen</string>
+	<string name="action_hide_keyboard">Tastatur ausblenden</string>
+	<string name="action_cat_edit">Kategorien bearbeiten</string>		
+	<string name="action_import_export">Import/Export</string>
+	
+<!--  Misc (6) -->
+    <string name="app_name">Sleek Todo</string>
+    <string name="edit_message">Zu tun …</string>
+    <string name="pick_font_size">Schriftgröße:</string>
+    <string name="pick_areyousure">Sind Sie sicher? ALLE Einträge werden gelöscht!</string>
+    <string name="title_import_export">Sicherungsdatei wählen</string>
+    <string name="default_cat_name">Kategorie %1$d</string>
+    
+
+
+<!--  Buttons (13) -->	
+	<string name="edit_button_remove_all">Alles löschen</string>
+	<string name="button_continue">Weiter</string>
+	
+	<string name="button_add_normal"><![CDATA[Add as<br/> <b>Normal</b>]]></string>
+	<string name="button_add_important"><![CDATA[Add as<br/> <b>Wichtig</b>]]></string>
+	<string name="button_add_critical"><![CDATA[Add as<br/> <b>Kritisch</b>]]></string>
+	
+	<string name="button_ok">OK</string>
+    <string name="button_cancel">Abbruch</string>
+    
+    <string name="button_return">Zurück</string>
+    <string name="button_export">Export</string>
+    <string name="button_import">Import</string>
+    <string name="button_edit">Bearbeiten</string>
+    
+    <string name="button_add">Zufügen</string>
+    <string name="button_remove">Entfernen</string>	
+
+    	
+<!--  Messages (13) -->
+	<string name="msg_todo_added">Neuen Eintrag zugefügt</string>
+	<string name="msg_font_changed">Schriftgröße geändert</string>
+	<string name="msg_elements_removed">%d Einträge entfernt</string>
+	<string name="msg_export_empty">Keine Einträge zum exportieren</string>
+	<string name="msg_import_empty">Keine Einträge zum importieren</string>
+	<string name="msg_cannot_write_to_file">Datei kann nicht geöffnet werden</string>
+	<string name="msg_error_writing_to_file">Fehler beim Schreiben in Datei</string>
+	<string name="msg_error_reading_from_file">Fehler beim Lesen aus Datei</string>
+	<string name="msg_elements_read">%d Einträge importiert</string>
+	<string name="msg_elements_written">%d Einträge exportiert</string>
+	<string name="msg_error_removing_cat">Kann Kategorie nicht löschen</string>
+	<string name="msg_moveItems">Um diese Kategorie löschen zu können, müssen %1$d Einträge in eine andere verschoben werden!</string>
+	
+	
+	<string name="msg_help"><![CDATA[
+   
+   <p><b>Kurzanleitung</b></p>
+   
+   <p>Erst einmal vielen Dank für das Herunterladen dieser App! Ein paar Tips:</p>
+
+<p>
+&#8226; Einträge können in Kategorien organisiert werden, Auswahl der aktuellen Kategorie erfolgt über wischen nach rechts/links.<br/>
+&#8226; Die Tastatur wird bei Start der App aktiviert, dieses Verhalten kann im Menü geändert werden.<br/>
+&#8226; Zufügen eines Eintrages: einfach den Text eingeben und dann die Priorität auswählen.<br/>
+&#8226; Entfernen eines Eintrages: Eintrag gedrückt halten, oder das Menü verwenden.<br/>
+&#8226; Eintrag bearbeiten: gedrückt halten (entfernen) um den Text zur Eingabezeile zu kopieren, dann bearbeiten und über Wahl der Priorität wieder zufügen.<br/>
+&#8226; Es können Symbole statt der Farben verwendet werden (im Menü wählbar).<br/>
+&#8226; Die Schriftgröße lässt sich ebenfalls im Menü ändern.<br/>  
+</p>
+	    
+   
+   <p><b>Symbol</b></p>
+   
+   <p>Das <i>Sleek TODO</i> Symbol wurde zur Verfügung gestellt von <a href="http://www.doublejdesign.co.uk">http://www.doublejdesign.co.uk</a></p> 
+   
+   
+   <p><b>Sprachen</b></p>
+   
+   <p>Deutsche Übersetzung von Jürgen Bauer</p> 
+   
+   ]]></string>
+	
+<!--  Debug (2) -->
+	<string name="msg_not_implemented">Nicht implementiert</string>
+	<string name="msg_todo_added_nok">Fehler bei Zufügen des neuen Eintrages</string>
+	
+<!--  Tutorial (9) -->	
+	<string name="todo_text_1">Eintrag zufügen: einfach eingeben und Priorität wählen</string>
+	<string name="todo_text_2">Eintrag entfernen: gedrückt halten</string>
+	<string name="todo_text_3">Beim Löschen wird der Text in das Eingabefeld zurück übertragen. Dort kann der Text gelöscht oder nach Bearbeitung wieder zugefügt werden.</string>
+	<string name="todo_text_4">Eintrag antippen zum Setzen/Entfernen des Hakens</string>
+	<string name="todo_text_5">Kategorie wechseln durch Wischgeste, Bearbeiten der Kategorien im Menü</string>
+	<string name="todo_text_6">Öffne das Menü, lösche alle Einträge und lege los</string>
+	
+	<string name="todo_text_7">Milch kaufen nicht vergessen!</string>
+
+	<string name="cat_name_tutorial">Anleitung</string>
+	<string name="cat_name_another">Einkaufen</string>
+	
+	
+	
+	
+</resources>
+

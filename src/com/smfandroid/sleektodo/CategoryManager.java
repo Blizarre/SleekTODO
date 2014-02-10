@@ -13,6 +13,9 @@ import android.util.Log;
 public class CategoryManager {
 	
 	private static final String PREF_CATEGORY_NB = "categoryNb";
+	
+	public static final int DEFAULT_NB_CAT = 2;
+	
 	protected Context mContext;
 	protected List<String> mListCategoryArrays;
 	protected final String TAG = getClass().getSimpleName();
@@ -25,7 +28,7 @@ public class CategoryManager {
 	}
 	
 	public String getCategoryName(int num) {
-		SharedPreferences pref = mContext.getSharedPreferences(getClass().getCanonicalName(), Context.MODE_PRIVATE);
+		SharedPreferences pref = getPrefs();
 		return pref.getString("category" + num, mContext.getString(R.string.default_cat_name, num + 1));
 	}
 	
@@ -36,23 +39,39 @@ public class CategoryManager {
 			throw new IllegalArgumentException("Category number doesn't exist");
 		
 		String catNumInString = Integer.toString(num);
-		SharedPreferences pref = mContext.getSharedPreferences(getClass().getCanonicalName(), Context.MODE_PRIVATE);
+		SharedPreferences pref = getPrefs();
 		Editor prefEdit = pref.edit();
 		prefEdit.putString("category" + catNumInString, name);
 		prefEdit.commit();
 		mListCategoryArrays.set(num, name);
 	}
 
-
+	/**
+	 * Return the current number of categories 
+	 * @return number of categories
+	 */
 	public int getNbCategory() {
 		Log.i(TAG, "get Number of categories");
-		SharedPreferences pref = mContext.getSharedPreferences(getClass().getCanonicalName(), Context.MODE_PRIVATE);
-		return pref.getInt(PREF_CATEGORY_NB, 1);
+		SharedPreferences pref = getPrefs();
+		return pref.getInt(PREF_CATEGORY_NB, DEFAULT_NB_CAT);
 	}
 
-
-	/***
-	 * Get the number of todo items that will need to be moved if a call to setNbCategory is made
+	
+	protected SharedPreferences getPrefs() {
+		return mContext.getSharedPreferences(getClass().getCanonicalName(), Context.MODE_PRIVATE);
+	}
+	
+	/**
+	 * For testing purpose. Remove all data used by the CategoryManager
+	 */
+	public void clearAllData() {
+		SharedPreferences pref = getPrefs();
+		pref.edit().clear().commit();
+	}
+	
+	/**
+	 * Get the number of todo items that will need to be moved if a call to setNbCategory with the 
+	 * parameter newNbCategory is made.
 	 */
 	public int getNbElementsToRelocate(int newNbCategory) {
 		int nbElts;
@@ -87,7 +106,7 @@ public class CategoryManager {
 			mContext.getContentResolver().update(TodoItemContract.TODO_URI, cv, where, arg);
 		}
 		
-		SharedPreferences pref = mContext.getSharedPreferences(getClass().getCanonicalName(), Context.MODE_PRIVATE);
+		SharedPreferences pref = getPrefs();
 		Editor prefEdit = pref.edit();
 		prefEdit.putInt(PREF_CATEGORY_NB, newNbCategory);
 		prefEdit.commit();
