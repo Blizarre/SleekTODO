@@ -27,9 +27,9 @@
 	<string name="edit_button_remove_all">Alles löschen</string>
 	<string name="button_continue">Weiter</string>
 	
-	<string name="button_add_normal"><![CDATA[Add as<br/> <b>Normal</b>]]></string>
-	<string name="button_add_important"><![CDATA[Add as<br/> <b>Wichtig</b>]]></string>
-	<string name="button_add_critical"><![CDATA[Add as<br/> <b>Kritisch</b>]]></string>
+	<string name="button_add_normal"><![CDATA[Hinzufügen<br/> <b>Normal</b>]]></string>
+	<string name="button_add_important"><![CDATA[Hinzufügen<br/> <b>Wichtig</b>]]></string>
+	<string name="button_add_critical"><![CDATA[Hinzufügen<br/> <b>Kritisch</b>]]></string>
 	
 	<string name="button_ok">OK</string>
     <string name="button_cancel">Abbruch</string>
